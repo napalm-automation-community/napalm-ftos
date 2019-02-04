@@ -143,6 +143,21 @@ class FTOSDriver(NetworkDriver):
         """Close the connection to the device."""
         self._netmiko_close()
 
+    def get_arp_table(self):
+        """FTOS implementation of get_arp_table."""
+
+        command = "show arp"
+        arp_entries = self._send_command(command)
+        arp_entries = textfsm_extractor(self, 'show_arp', arp_entries)
+        for idx in arp_entries:
+            try:
+                # age is given in minutes
+                arp_entries[idx]['age'] = int(arp_entries[idx]['age']) * 60
+            except ValueError:
+                arp_entries[idx]['age'] = -1
+
+        return arp_entries
+
     def get_config(self, retrieve='all'):
         """FTOS implementation of get_config."""
         config = {
