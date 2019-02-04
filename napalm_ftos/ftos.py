@@ -404,6 +404,49 @@ class FTOSDriver(NetworkDriver):
 
         return interfaces
 
+    def _get_ntp_assoc(self):
+        ntp_entries = self._send_command("show ntp associations")
+        return textfsm_extractor(self, 'show_ntp_associations', ntp_entries)
+
+    def get_ntp_peers(self):
+        """FTOS implementation of get_ntp_peers."""
+        entries = self._get_ntp_assoc()
+
+        peers = {}
+        for idx, entry in enumerate(entries):
+            peers[entry['remote']] = {}
+
+        return peers
+
+    def get_ntp_servers(self):
+        """FTOS implementation of get_ntp_servers."""
+
+        return get_ntp_peers()
+
+    def get_ntp_stats(self):
+        """FTOS implementation of get_ntp_stats."""
+
+        entries = self._get_ntp_assoc()
+        stats = []
+        for idx, entry in enumerate(entries):
+            # cast ints
+            for key in ['stratum', 'hostpoll', 'reachability']:
+                try:
+                    entry[key] = int(entry[key])
+                except ValueError:
+                    entry[key] = 0
+            # cast floats
+            for key in ['delay', 'offset', 'jitter']:
+                try:
+                    entry[key] = float(entry[key])
+                except ValueError:
+                    entry[key] = 0.0
+
+            entry['synchronized'] = (entry['type'] == '*')
+            stats.append(entry)
+
+        return stats
+
     def is_alive(self):
         """FTOS implementation of is_alive."""
 
