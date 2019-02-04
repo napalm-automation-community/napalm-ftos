@@ -21,6 +21,7 @@ Read https://napalm.readthedocs.io for more information.
 
 import re
 import socket
+import types
 
 from napalm.base.helpers import textfsm_extractor
 from napalm.base.helpers import canonical_interface_name
@@ -316,12 +317,14 @@ class FTOSDriver(NetworkDriver):
 
         return mac_table
 
+    def _get_interfaces_detail(self):
+        iface_entries = self._send_command("show interfaces")
+        return textfsm_extractor(self, 'show_interfaces', iface_entries)
+
     def get_interfaces(self):
         """FTOS implementation of get_interfaces."""
 
-        command = "show interfaces"
-        iface_entries = self._send_command(command)
-        iface_entries = textfsm_extractor(self, 'show_interfaces', iface_entries)
+        iface_entries = self._get_interfaces_detail()
 
         interfaces = {}
         for i, entry in enumerate(iface_entries):
@@ -353,6 +356,46 @@ class FTOSDriver(NetworkDriver):
 
             # parse last_flapped
             iface['last_flapped'] = self._parse_uptime(entry['last_flapped'])
+
+            # add interface data to dict
+            local_intf = canonical_interface_name(entry['iface_name'])
+            interfaces[local_intf] = iface
+
+        return interfaces
+
+    def get_interfaces_counters(self):
+        """FTOS implementation of get_interfaces_counters."""
+
+        iface_entries = self._get_interfaces_detail()
+        interfaces = {}
+        key_map = [
+            'rx_octets',
+            ['rx_unicast', 'rx_unicast_packets'],
+            ['rx_mcast', 'rx_multicast_packets'],
+            ['rx_bcast', 'rx_broadcast_packets'],
+            ['rx_dcard', 'rx_discards'],
+            'tx_octets',
+            ['tx_unicast', 'tx_unicast_packets'],
+            ['tx_mcast', 'tx_multicast_packets'],
+            ['tx_bcast', 'tx_broadcast_packets'],
+            ['tx_dcard', 'tx_discards'],
+        ]
+        for idx, entry in enumerate(iface_entries):
+            iface = {
+                'rx_errors':            0, # unimplemented
+                'tx_errors':            0, # unimplemented
+            }
+            for key in key_map:
+                if (isinstance(key, types.ListType)):
+                    src, dst = key
+                else:
+                    src = key
+                    dst = key
+
+                try:
+                    iface[dst] = int(entry[src])
+                except ValueError:
+                    iface[dst] = 0
 
             # add interface data to dict
             local_intf = canonical_interface_name(entry['iface_name'])

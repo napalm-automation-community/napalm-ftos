@@ -37,12 +37,34 @@ Value ADMIN_STATUS (\w+)
 Value OPER_STATUS (\w+)
 Value DESCRIPTION (.*)
 Value MAC_ADDRESS (([a-f0-9]{2}:){5}[a-f0-9]{2})
-Value LAST_FLAPPED (.*)
 Value LINE_SPEED (.*bit)
+Value RX_OCTETS (\d+)
+Value RX_MCAST (\d+)
+Value RX_BCAST (\d+)
+Value RX_UNICAST (\d+)
+Value RX_DCARD (\d+)
+Value TX_OCTETS (\d+)
+Value TX_MCAST (\d+)
+Value TX_BCAST (\d+)
+Value TX_UNICAST (\d+)
+Value TX_DCARD (\d+)
+Value LAST_FLAPPED (.*)
 
 Start
   ^\s*${IFACE_NAME} is ${ADMIN_STATUS}, line protocol is ${OPER_STATUS}
   ^\s*Description: ${DESCRIPTION}
   ^.*Current address is ${MAC_ADDRESS}
-  ^Time since last interface status change: ${LAST_FLAPPED}
-  ^LineSpeed ${LINE_SPEED} -> Record
+  ^LineSpeed ${LINE_SPEED}
+  ^Input Statistics: -> RxStats
+  ^Output Statistics: -> TxStats
+  ^Time since last interface status change: ${LAST_FLAPPED} -> Record
+
+RxStats
+  ^\s*\d+ packets, ${RX_OCTETS} bytes
+  ^\s*${RX_MCAST} Multicasts, ${RX_BCAST} Broadcasts, ${RX_UNICAST} Unicasts
+  ^.*, ${RX_DCARD} discarded -> Start
+
+TxStats
+  ^\s*\d+ packets, ${TX_OCTETS} bytes
+  ^\s*${TX_MCAST} Multicasts, ${TX_BCAST} Broadcasts, ${TX_UNICAST} Unicasts
+  ^.*, ${TX_DCARD} discarded -> Start
