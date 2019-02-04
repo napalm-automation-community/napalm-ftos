@@ -348,11 +348,12 @@ class FTOSDriver(NetworkDriver):
                 iface['is_up'] = True
 
             # parse line_speed
-            speed = entry['line_speed'].split(' ')
-            if speed[1] == 'Mbit':
-                iface['speed'] = int(speed[0])
-            elif speed[1] == 'Gbit': # not sure if this ever occurs
-                iface['speed'] = int(speed[0]*1000)
+            if re.search('bit$', entry['line_speed']):
+                speed = entry['line_speed'].split(' ')
+                if speed[1] == 'Mbit':
+                    iface['speed'] = int(speed[0])
+                elif speed[1] == 'Gbit': # not sure if this ever occurs
+                    iface['speed'] = int(speed[0]*1000)
 
             # parse last_flapped
             iface['last_flapped'] = self._parse_uptime(entry['last_flapped'])
