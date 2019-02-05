@@ -82,6 +82,9 @@ class FTOSDriver(NetworkDriver):
         Extract the uptime string from the given FTOS Device given in form of
         32 week(s), 6 day(s), 10 hour(s), 39 minute(s)
 
+        When short is set to True, expect the format to be either hh:mm:ss or
+        in form 32w6d10h
+
         Return the uptime in seconds as an integer
         """
         # Initialize to zero
