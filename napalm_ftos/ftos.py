@@ -149,10 +149,10 @@ class FTOSDriver(NetworkDriver):
         command = "show arp"
         arp_entries = self._send_command(command)
         arp_entries = textfsm_extractor(self, 'show_arp', arp_entries)
-        for idx in arp_entries:
+        for idx, _ in enumerate(arp_entries):
             try:
                 # age is given in minutes
-                arp_entries[idx]['age'] = int(arp_entries[idx]['age']) * 60
+                arp_entries[idx]['age'] = float(arp_entries[idx]['age']) * 60
             except ValueError:
                 arp_entries[idx]['age'] = -1
 

@@ -1,0 +1,5 @@
+
+Protocol    Address         Age(min)  Hardware Address    Interface      VLAN             CPU
+---------------------------------------------------------------------------------------------
+Internet    172.28.14.1           0   e4:8d:8c:04:33:49   Ma 0/0          -               CP
+Internet    172.28.14.6           7   f8:b1:56:4c:66:f0   Ma 0/0          -               CP
