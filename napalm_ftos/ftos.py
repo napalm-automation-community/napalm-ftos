@@ -296,20 +296,31 @@ class FTOSDriver(NetworkDriver):
             command = "show lldp neighbors interface {} detail".format(interface)
         else:
             command = "show lldp neighbors detail"
+
         lldp_entries = self._send_command(command)
         lldp_entries = textfsm_extractor(self, 'show_lldp_neighbors_detail', lldp_entries)
 
         lldp = {}
         for idx, lldp_entry in enumerate(lldp_entries):
+            # TODO: the current textfsm template keeps adding an empty entry at
+            # the end of each interface and I couldn't fix it so at some point
+            # it was just easier to get rid of these empty entries in code
+            nonZero = False
+            for key in lldp_entry.keys():
+                # local_interface is set to Filldown so that is always filled
+                if key == 'local_interface':
+                    continue
+                if len(lldp_entry[key].strip()) > 0:
+                    nonZero = True
+                    break
+            if not nonZero:
+                continue
+
+            # get pretty interface name
             local_intf = canonical_interface_name(lldp_entry.pop('local_interface'))
-            # glue multipe description lines together
-            if 'remote_system_description2' in lldp_entry.keys():
-                lldp_entry['remote_system_description'] += ' ' + lldp_entry['remote_system_description2'].strip()
-                del lldp_entry['remote_system_description2']
 
             # not implemented
-            lldp_entry['parent_interface'] = ''
-
+            lldp_entry['parent_interface'] = u''
 
             lldp.setdefault(local_intf, [])
             lldp[local_intf].append(lldp_entry)

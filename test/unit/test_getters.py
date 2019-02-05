@@ -53,6 +53,21 @@ class TestGetter(BaseTestGetters):
         return facts
 
     @wrap_test_cases
+    def test_get_lldp_neighbors_detail(self, test_case):
+        """Test get_lldp_neighbors_detail."""
+        if test_case == 'normal':
+            neighbors = self.device.get_lldp_neighbors_detail()
+        else:
+            iface = test_case.replace('__', '/').replace('_', ' ')
+            neighbors = self.device.get_lldp_neighbors_detail(iface)
+
+        for iface in neighbors.values():
+            for neighbor in iface:
+                assert helpers.test_model(models.lldp_neighbors_detail, neighbor)
+
+        return neighbors
+
+    @wrap_test_cases
     def test_get_interfaces(self, test_case):
         """Test get_interfaces."""
         interfaces = self.device.get_interfaces()
