@@ -53,6 +53,18 @@ class TestGetter(BaseTestGetters):
         return facts
 
     @wrap_test_cases
+    def test_get_lldp_neighbors(self, test_case):
+        """Test get_lldp_neighbors."""
+
+        neighbors = self.device.get_lldp_neighbors()
+
+        for iface in neighbors.values():
+            for neighbor in iface:
+                assert helpers.test_model(models.lldp_neighbors, neighbor)
+
+        return neighbors
+
+    @wrap_test_cases
     def test_get_lldp_neighbors_detail(self, test_case):
         """Test get_lldp_neighbors_detail."""
         if test_case == 'normal':

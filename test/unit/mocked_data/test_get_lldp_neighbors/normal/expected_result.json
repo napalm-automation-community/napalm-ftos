@@ -1,0 +1,30 @@
+{
+  "TenGigabitEthernet0/4": [
+    {
+      "hostname": "server04",
+      "port": "eth0"
+    }
+  ],
+  "TenGigabitEthernet0/1": [
+    {
+      "hostname": "server01",
+      "port": "eth0"
+    },
+    {
+      "hostname": "server05",
+      "port": "ix0"
+    }
+  ],
+  "TenGigabitEthernet0/3": [
+    {
+      "hostname": "server03",
+      "port": "eth0"
+    }
+  ],
+  "TenGigabitEthernet0/2": [
+    {
+      "hostname": "server02",
+      "port": "eth0"
+    }
+  ]
+}
