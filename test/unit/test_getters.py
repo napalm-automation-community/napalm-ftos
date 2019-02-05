@@ -22,3 +22,12 @@ class TestGetter(BaseTestGetters):
             assert helpers.test_model(models.arp_table, entry)
 
         return arp_table
+
+    @wrap_test_cases
+    def test_get_facts(self, test_case):
+        """Test get_facts."""
+        facts = self.device.get_facts()
+
+        assert helpers.test_model(models.facts, facts)
+
+        return facts

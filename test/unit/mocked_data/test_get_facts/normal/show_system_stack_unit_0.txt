@@ -1,0 +1,47 @@
+
+--  Unit 0 --
+Unit Type                      : Management Unit
+Status                         : online
+Next Boot                      : online
+Required Type                  : MXL-10/40GbE - 34-port GE/TE/FG (XL)
+Current Type                   : MXL-10/40GbE - 34-port GE/TE/FG (XL)
+Master priority                 : 0
+Hardware Rev                   : A03
+Num Ports                      : 56
+Up Time                        : 33 wk, 4 day, 12 hr, 4 min
+Dell Networking OS Version : 9.13(0.2)
+Jumbo Capable                  : yes
+POE Capable                    : no
+FIPS Mode                      : disabled
+Boot Flash                       : A: 4.0.1.3 [booted]    B: 4.0.1.2
+Boot Selector                  : 4.0.0.2
+Memory Size                    : 2147483648 bytes
+Temperature                    : 66C
+Voltage                        : ok
+Switch Power               : GOOD
+Product Name               : DELL MXL 10/40GbE
+Mfg By                     : DELL
+Mfg Date                   : 2014-07-14
+Serial Number              : CN1234847E0213
+Part Number                : 0PK12JA03
+Piece Part ID              : CN-0PK12J-12348-47E-0213
+PPID Revision              : A03
+Service Tag                : ABCD123
+Expr Svc Code              : 123 456 798 1
+Chassis Svce Tag           : ABCD123
+Fabric Id                  : A1
+Asset tag                  :
+PSOC FW Rev                : 0xb
+ICT Test Date              : 4-7-14
+ICT Test Info              : 0x0
+Max Power Req              : 31488
+Fabric Type                : 0x3
+Fabric Maj Ver             : 0x1
+Fabric Min Ver             : 0x0
+SW Manageability           : 0x4
+HW Manageability           : 0x1
+Max Boot Time              : 6 minutes
+Link Tuning                : unsupported
+Auto Reboot                    : enabled
+Burned In MAC                  : aa:bb:cc:dd:ee:ff
+No Of MACs                     : 3

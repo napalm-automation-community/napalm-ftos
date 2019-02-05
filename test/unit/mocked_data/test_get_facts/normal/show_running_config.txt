@@ -1,0 +1,4 @@
+! Only hostname is relevant
+!
+!
+hostname switch01.localdomain

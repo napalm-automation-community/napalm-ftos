@@ -1,0 +1,15 @@
+{
+  "uptime": 20347440,
+  "vendor": "DELL",
+  "hostname": "switch01.localdomain",
+  "fqdn": "switch01.localdomain",
+  "os_version": "9.13(0.2)",
+  "serial_number": "CN1234847E0213",
+  "model": "DELL MXL 10/40GbE",
+  "interface_list": [
+    "TenGigabitEthernet0/4",
+    "TenGigabitEthernet0/1",
+    "TenGigabitEthernet0/3",
+    "TenGigabitEthernet0/2"
+  ]
+}
