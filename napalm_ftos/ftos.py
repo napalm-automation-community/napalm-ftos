@@ -355,7 +355,7 @@ class FTOSDriver(NetworkDriver):
                 'is_up': False,
                 'description': entry['description'],
                 'mac_address': entry['mac_address'],
-                'last_flapped': 0, # in seconds
+                'last_flapped': 0.0, # in seconds
                 'speed': 0, # in megabits
             }
 
@@ -374,7 +374,7 @@ class FTOSDriver(NetworkDriver):
                     iface['speed'] = int(speed[0]*1000)
 
             # parse last_flapped
-            iface['last_flapped'] = self._parse_uptime(entry['last_flapped'])
+            iface['last_flapped'] = float(self._parse_uptime(entry['last_flapped'], True))
 
             # add interface data to dict
             local_intf = canonical_interface_name(entry['iface_name'])

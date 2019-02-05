@@ -51,3 +51,13 @@ class TestGetter(BaseTestGetters):
         assert helpers.test_model(models.facts, facts)
 
         return facts
+
+    @wrap_test_cases
+    def test_get_interfaces(self, test_case):
+        """Test get_interfaces."""
+        interfaces = self.device.get_interfaces()
+
+        for iface in interfaces.values():
+            assert helpers.test_model(models.interface, iface)
+
+        return interfaces

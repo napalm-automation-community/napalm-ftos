@@ -1,0 +1,142 @@
+TenGigabitEthernet 0/1 is up, line protocol is up
+Port is part of Port-channel 1
+Description: server01
+Hardware is DellEth, address is aa:bb:cc:dd:ee:01
+    Current address is aa:bb:cc:dd:ee:01
+Server Port AdminState is N/A
+Pluggable media not present
+Interface index is 1048580
+Internet address is not set
+Mode of IPv4 Address Assignment : NONE
+DHCP Client-ID :aabbccddee01
+MTU 12000 bytes, IP MTU 11982 bytes
+LineSpeed 10000 Mbit
+Flowcontrol rx off tx off
+ARP type: ARPA, ARP Timeout 04:00:00
+Last clearing of "show interface" counters 1w3d23h
+Queueing strategy: fifo
+Input Statistics:
+     1744615501 packets, 4113562169497 bytes
+     4256770 64-byte pkts, 444036794 over 64-byte pkts, 56286103 over 127-byte pkts
+     235024824 over 255-byte pkts, 30448871 over 511-byte pkts, 974562139 over 1023-byte pkts
+     32966 Multicasts, 3497 Broadcasts, 1744579038 Unicasts
+     0 runts, 0 giants, 0 throttles
+     0 CRC, 0 overrun, 31467 discarded
+Output Statistics:
+     1816060613 packets, 3247499732460 bytes, 0 underruns
+     11677172 64-byte pkts, 872237725 over 64-byte pkts, 315485921 over 127-byte pkts
+     28633089 over 255-byte pkts, 58933436 over 511-byte pkts, 529093270 over 1023-byte pkts
+     4291459 Multicasts, 27193269 Broadcasts, 1784575885 Unicasts
+     0 throttles, 0 discarded, 0 collisions, 0 wreddrops
+Rate info (interval 299 seconds):
+     Input 61.00 Mbits/sec,       3321 packets/sec, 0.62% of line-rate
+     Output 18.00 Mbits/sec,       2650 packets/sec, 0.18% of line-rate
+Time since last interface status change: 1w3d21h
+
+
+TenGigabitEthernet 0/2 is up, line protocol is up
+Port is part of Port-channel 2
+Description: server02
+Hardware is DellEth, address is aa:bb:cc:dd:ee:02
+    Current address is aa:bb:cc:dd:ee:02
+Server Port AdminState is N/A
+Pluggable media not present
+Interface index is 1048708
+Internet address is not set
+Mode of IPv4 Address Assignment : NONE
+DHCP Client-ID :aabbccddee02
+MTU 12000 bytes, IP MTU 11982 bytes
+LineSpeed 10000 Mbit
+Flowcontrol rx off tx off
+ARP type: ARPA, ARP Timeout 04:00:00
+Last clearing of "show interface" counters 33w4d12h
+Queueing strategy: fifo
+Input Statistics:
+     93627128229 packets, 211352594374314 bytes
+     183840178 64-byte pkts, 32326723144 over 64-byte pkts, 1467869670 over 127-byte pkts
+     9407488886 over 255-byte pkts, 1100769946 over 511-byte pkts, 49140436405 over 1023-byte pkts
+     774114 Multicasts, 94292 Broadcasts, 93626259823 Unicasts
+     0 runts, 0 giants, 0 throttles
+     0 CRC, 0 overrun, 1347539 discarded
+Output Statistics:
+     131225366711 packets, 377975970443955 bytes, 0 underruns
+     633085739 64-byte pkts, 57195679460 over 64-byte pkts, 16687425796 over 127-byte pkts
+     1517981233 over 255-byte pkts, 3876986970 over 511-byte pkts, 51314207513 over 1023-byte pkts
+     98488223 Multicasts, 568309783 Broadcasts, 130558568705 Unicasts
+     0 throttles, 0 discarded, 0 collisions, 0 wreddrops
+Rate info (interval 299 seconds):
+     Input 87.00 Mbits/sec,       4098 packets/sec, 0.88% of line-rate
+     Output 08.00 Mbits/sec,       2039 packets/sec, 0.08% of line-rate
+Time since last interface status change: 6d23h54m
+
+
+TenGigabitEthernet 0/3 is down, line protocol is down
+Port is part of Port-channel 3
+Description: server03
+Hardware is DellEth, address is aa:bb:cc:dd:ee:03
+    Current address is aa:bb:cc:dd:ee:03
+Server Port AdminState is N/A
+Pluggable media not present
+Interface index is 1048836
+Internet address is not set
+Mode of IPv4 Address Assignment : NONE
+DHCP Client-ID :aabbccddee03
+MTU 12000 bytes, IP MTU 11982 bytes
+LineSpeed 10000 Mbit
+Flowcontrol rx off tx off
+ARP type: ARPA, ARP Timeout 04:00:00
+Last clearing of "show interface" counters 33w4d12h
+Queueing strategy: fifo
+Input Statistics:
+     25605880288 packets, 63451757859847 bytes
+     165055398 64-byte pkts, 5953610310 over 64-byte pkts, 1655907932 over 127-byte pkts
+     3013783073 over 255-byte pkts, 472757764 over 511-byte pkts, 14344765811 over 1023-byte pkts
+     721850 Multicasts, 45648 Broadcasts, 25605112790 Unicasts
+     0 runts, 0 giants, 0 throttles
+     0 CRC, 0 overrun, 678665 discarded
+Output Statistics:
+     23569348044 packets, 29298150755434 bytes, 0 underruns
+     391595035 64-byte pkts, 11895907008 over 64-byte pkts, 4118630578 over 127-byte pkts
+     543362913 over 255-byte pkts, 593990899 over 511-byte pkts, 6025861611 over 1023-byte pkts
+     98559194 Multicasts, 569014520 Broadcasts, 22901774330 Unicasts
+     0 throttles, 0 discarded, 0 collisions, 0 wreddrops
+Rate info (interval 299 seconds):
+     Input 41.00 Mbits/sec,       2440 packets/sec, 0.42% of line-rate
+     Output 26.00 Mbits/sec,       2504 packets/sec, 0.27% of line-rate
+Time since last interface status change: 1w1d1h
+
+
+TenGigabitEthernet 0/4 is up, line protocol is down
+Port is part of Port-channel 16
+Description: server04
+Hardware is DellEth, address is aa:bb:cc:dd:ee:04
+    Current address is aa:bb:cc:dd:ee:04
+Server Port AdminState is N/A
+Pluggable media not present
+Interface index is 1050500
+Internet address is not set
+Mode of IPv4 Address Assignment : NONE
+DHCP Client-ID :aabbccddee04
+MTU 12000 bytes, IP MTU 11982 bytes
+LineSpeed auto
+Flowcontrol rx off tx off
+ARP type: ARPA, ARP Timeout 04:00:00
+Last clearing of "show interface" counters 33w4d13h
+Queueing strategy: fifo
+Input Statistics:
+     42851848243 packets, 98787414877790 bytes
+     85742042 64-byte pkts, 9921137618 over 64-byte pkts, 1081265953 over 127-byte pkts
+     6740869891 over 255-byte pkts, 828668386 over 511-byte pkts, 24194164353 over 1023-byte pkts
+     692207 Multicasts, 82005 Broadcasts, 42851074031 Unicasts
+     0 runts, 0 giants, 0 throttles
+     0 CRC, 0 overrun, 852893 discarded
+Output Statistics:
+     41188143379 packets, 73617668233460 bytes, 0 underruns
+     376977487 64-byte pkts, 20224044578 over 64-byte pkts, 5886166522 over 127-byte pkts
+     898599759 over 255-byte pkts, 1823944732 over 511-byte pkts, 11978410301 over 1023-byte pkts
+     96242835 Multicasts, 554951915 Broadcasts, 40536948629 Unicasts
+     0 throttles, 0 discarded, 0 collisions, 0 wreddrops
+Rate info (interval 299 seconds):
+     Input 00.00 Mbits/sec,          0 packets/sec, 0.00% of line-rate
+     Output 00.00 Mbits/sec,          0 packets/sec, 0.00% of line-rate
+Time since last interface status change: 5d1h56m
