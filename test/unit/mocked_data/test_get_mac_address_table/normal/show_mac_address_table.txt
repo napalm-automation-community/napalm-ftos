@@ -1,0 +1,28 @@
+Codes: *N - VLT Peer Synced MAC
+*I - Internal MAC Address used for Inter Process Communication
+VlanId     Mac Address           Type          Interface        State
+ 212	00:00:5e:00:01:01	Dynamic    	Te 0/49   	Active
+ 212	00:19:e2:b8:07:c1	Dynamic (N)	Po 100    	Active
+ 212	00:19:e2:bd:27:c1	Dynamic    	Te 0/49   	Active
+ 212	74:8e:f8:fe:64:0b	Dynamic    	Te 0/49   	Active
+ 212	90:e2:ba:83:3c:28	Dynamic (N)	Po 52     	Active
+ 212	90:e2:ba:89:d7:80	Dynamic (N)	Po 50     	Active
+ 300	54:9f:35:01:d7:90	Dynamic    	Te 0/49   	Active
+ 300	54:9f:35:0b:29:d8	Dynamic    	Te 0/49   	Active
+ 300	74:8e:f8:fe:64:0b	Dynamic    	Te 0/49   	Active
+ 300	d4:ae:52:20:87:a8	Dynamic    	Po 4      	Active
+ 300	d4:ae:52:20:87:ab	Dynamic (N)	Po 4      	Active
+ 300	d4:ae:52:20:87:b5	Dynamic    	Po 5      	Active
+ 300	d4:ae:52:20:87:b8	Dynamic (N)	Po 5      	Active
+ 300	d6:ae:52:20:87:8e	Dynamic    	Po 2      	Active
+ 300	d6:ae:52:20:87:90	Dynamic (N)	Po 2      	Active
+ 300	d6:ae:52:20:87:9b	Dynamic    	Po 3      	Active
+ 300	d6:ae:52:20:87:9d	Dynamic (N)	Po 3      	Active
+ 300	d6:ae:52:20:87:a8	Dynamic    	Po 4      	Active
+ 300	d6:ae:52:20:87:ab	Dynamic (N)	Po 4      	Active
+ 300	d6:ae:52:20:87:b5	Dynamic    	Po 5      	Active
+ 300	d6:ae:52:20:87:b8	Dynamic (N)	Po 5      	Active
+ 300	d6:ae:52:20:87:c2	Dynamic    	Po 6      	Active
+ 300	d6:ae:52:20:87:c4	Dynamic (N)	Po 6      	Active
+ 300	d6:ae:52:20:87:cf	Dynamic    	Po 7      	Active
+ 300	d6:ae:52:20:87:d1	Dynamic (N)	Po 7      	Active

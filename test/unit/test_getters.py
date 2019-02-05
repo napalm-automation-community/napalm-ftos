@@ -80,6 +80,16 @@ class TestGetter(BaseTestGetters):
         return neighbors
 
     @wrap_test_cases
+    def test_get_mac_address_table(self, test_case):
+        """Test get_mac_address_table."""
+        mac_table = self.device.get_mac_address_table()
+
+        for mac in mac_table:
+            assert helpers.test_model(models.mac_address_table, mac)
+
+        return mac_table
+
+    @wrap_test_cases
     def test_get_interfaces(self, test_case):
         """Test get_interfaces."""
         interfaces = self.device.get_interfaces()

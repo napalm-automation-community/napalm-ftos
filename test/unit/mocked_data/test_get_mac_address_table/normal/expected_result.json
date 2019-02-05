@@ -1,0 +1,227 @@
+[
+  {
+    "vlan": 212,
+    "last_move": -1,
+    "interface": "TenGigabitEthernet0/49",
+    "mac": "00:00:5e:00:01:01",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 212,
+    "last_move": -1,
+    "interface": "Port-channel100",
+    "mac": "00:19:e2:b8:07:c1",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 212,
+    "last_move": -1,
+    "interface": "TenGigabitEthernet0/49",
+    "mac": "00:19:e2:bd:27:c1",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 212,
+    "last_move": -1,
+    "interface": "TenGigabitEthernet0/49",
+    "mac": "74:8e:f8:fe:64:0b",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 212,
+    "last_move": -1,
+    "interface": "Port-channel52",
+    "mac": "90:e2:ba:83:3c:28",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 212,
+    "last_move": -1,
+    "interface": "Port-channel50",
+    "mac": "90:e2:ba:89:d7:80",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "TenGigabitEthernet0/49",
+    "mac": "54:9f:35:01:d7:90",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "TenGigabitEthernet0/49",
+    "mac": "54:9f:35:0b:29:d8",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "TenGigabitEthernet0/49",
+    "mac": "74:8e:f8:fe:64:0b",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel4",
+    "mac": "d4:ae:52:20:87:a8",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel4",
+    "mac": "d4:ae:52:20:87:ab",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel5",
+    "mac": "d4:ae:52:20:87:b5",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel5",
+    "mac": "d4:ae:52:20:87:b8",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel2",
+    "mac": "d6:ae:52:20:87:8e",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel2",
+    "mac": "d6:ae:52:20:87:90",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel3",
+    "mac": "d6:ae:52:20:87:9b",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel3",
+    "mac": "d6:ae:52:20:87:9d",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel4",
+    "mac": "d6:ae:52:20:87:a8",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel4",
+    "mac": "d6:ae:52:20:87:ab",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel5",
+    "mac": "d6:ae:52:20:87:b5",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel5",
+    "mac": "d6:ae:52:20:87:b8",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel6",
+    "mac": "d6:ae:52:20:87:c2",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel6",
+    "mac": "d6:ae:52:20:87:c4",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel7",
+    "mac": "d6:ae:52:20:87:cf",
+    "static": false,
+    "active": true,
+    "moves": -1
+  },
+  {
+    "vlan": 300,
+    "last_move": -1,
+    "interface": "Port-channel7",
+    "mac": "d6:ae:52:20:87:d1",
+    "static": false,
+    "active": true,
+    "moves": -1
+  }
+]

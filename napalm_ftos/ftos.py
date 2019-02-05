@@ -340,7 +340,7 @@ class FTOSDriver(NetworkDriver):
             entry['static'] = (entry['static'] == 'Static')
             entry['active'] = (entry['active'] == 'Active')
             entry['moves'] = -1 # not implemented
-            entry['last_move'] = -1 # not implemented
+            entry['last_move'] = -1.0 # not implemented
 
             mac_table.append(entry)
 
