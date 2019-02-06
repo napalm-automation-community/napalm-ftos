@@ -1,0 +1,6 @@
+-- Unit Environment Status  --
+Unit  Status        Temp   Voltage      TempStatus
+---------------------------------------------------------------------------
+* 0   online        69C    ok            2
+
+ * Management Unit

@@ -1,7 +1,3 @@
-#
-# CPU utilization 	5Sec 	1Min 	5Min
-# -------------------------------------------
-# UNIT0 			  4% 	  4% 	  4%
 Value UNIT (\d+)
 Value FSEC (\d+)
 Value OMIN (\d+)
