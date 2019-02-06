@@ -166,7 +166,7 @@ class FTOSDriver(NetworkDriver):
         config = {
             'startup': '',
             'running': '',
-            'candidate': 'Not implemented for FTOS', # not implemented
+            'candidate': u'Not implemented for FTOS', # not implemented
         }
 
         if retrieve in ['all', 'running']:
