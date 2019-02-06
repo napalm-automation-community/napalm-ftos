@@ -1,7 +1,3 @@
-#remote       vrf-Id     ref clock     st when poll reach   delay   offset    disp
-#====================================================================================
-#*172.14.14.1       0   172.14.14.1      3    6   16  377     0.37    1.769    0.55
-#* master (synced), # master (unsynced), + selected, - candidate
 Value TYPE ([\*#\+\-]?)
 Value REMOTE ([a-f0-9\.:]+)
 Value REFERENCEID ([a-f0-9\.:]+)

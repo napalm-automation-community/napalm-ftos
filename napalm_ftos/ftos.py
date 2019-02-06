@@ -450,7 +450,7 @@ class FTOSDriver(NetworkDriver):
     def get_ntp_servers(self):
         """FTOS implementation of get_ntp_servers."""
 
-        return get_ntp_peers()
+        return self.get_ntp_peers()
 
     def get_ntp_stats(self):
         """FTOS implementation of get_ntp_stats."""
