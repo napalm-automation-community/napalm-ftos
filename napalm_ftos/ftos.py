@@ -518,3 +518,51 @@ class FTOSDriver(NetworkDriver):
             return {'is_alive': False}
 
         return {'is_alive': False}
+
+    def ping(self, destination, source=u'', ttl=255, timeout=2, size=100, count=5, vrf=u''):
+        """FTOS implementation of ping."""
+        # build command string based on input
+        cmd = ["ping"]
+        if len(vrf.strip()) > 0:
+            cmd.append("vrf %s" % vrf)
+        cmd.append(destination)
+        cmd.append("timeout %d" % timeout)
+        cmd.append("datagram-size %d" % size)
+        if len(source.strip()) > 0:
+            cmd.append("source ip %s" % source)
+        cmd.append("count %d" % count)
+
+        command = ' '.join(cmd)
+        result = self._send_command(command)
+
+        # check if output holds an error
+        m = re.search('% Error: (.+)', result)
+        if m:
+            return {
+                'error': m.group(0)
+            }
+
+        # try to parse the output
+        m = re.search('Success rate is [\d\.]+ percent \((\d+)\/(\d+)\).+ = (\d+)\/(\d+)\/(\d+)', result)
+        if not m:
+            return {
+                'error': 'could not parse output',
+            }
+
+        g = m.groups()
+        return {
+            'success': {
+                'probes_sent': int(g[1]),
+                'packet_loss': int(g[1]) - int(g[0]),
+                'rtt_min': float(g[2]),
+                'rtt_avg': float(g[3]),
+                'rtt_max': float(g[4]),
+                'rtt_stddev': 0.0, # not implemented
+                'results': [
+                    {
+                        'ip_address': destination,
+                        'rtt': float(g[3]),
+                    }
+                ],
+            }
+        }

@@ -1,0 +1,16 @@
+{
+  "success": {
+    "packet_loss": 1,
+    "rtt_stddev": 0,
+    "rtt_min": 0,
+    "results": [
+      {
+        "rtt": 1,
+        "ip_address": "8.8.8.8"
+      }
+    ],
+    "rtt_avg": 1,
+    "rtt_max": 40,
+    "probes_sent": 5
+  }
+}

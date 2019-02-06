@@ -20,6 +20,7 @@ NAPALM driver for Dell EMC/Force10 FTOS
 * get_users
 * is_alive
 * open
+* ping
 
 ### Missing APIs.
 
@@ -44,7 +45,6 @@ NAPALM driver for Dell EMC/Force10 FTOS
 * load_merge_candidate
 * load_replace_candidate
 * load_template
-* ping
 * post_connection_tests
 * pre_connection_tests
 * rollback
