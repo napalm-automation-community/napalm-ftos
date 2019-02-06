@@ -31,3 +31,16 @@ class TestGetter(BaseTestGetters):
             assert out == t[1]
 
         return {}
+
+    @wrap_test_cases
+    def test_get_config_filtered(self, test_case):
+        """Test get_config method."""
+        for config in ['running', 'startup', 'candidate']:
+            get_config = self.device.get_config(retrieve=config)
+
+            # FTOS doesn't have candidate config
+            #assert get_config['candidate'] == "" if config != "candidate" else True
+            assert get_config['startup'] == "" if config != "startup" else True
+            assert get_config['running'] == "" if config != "running" else True
+
+        return get_config
