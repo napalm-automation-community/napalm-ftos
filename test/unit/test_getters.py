@@ -44,3 +44,8 @@ class TestGetter(BaseTestGetters):
             assert get_config['running'] == "" if config != "running" else True
 
         return get_config
+
+    @wrap_test_cases
+    def test_is_alive(self, test_case):
+        """There is little to test with this function."""
+        raise NotImplementedError
