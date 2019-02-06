@@ -4,8 +4,6 @@ import pytest
 
 from napalm.base.test.getters import BaseTestGetters
 from napalm.base.test.getters import wrap_test_cases
-from napalm.base.test import helpers
-from napalm.base.test import models
 
 
 @pytest.mark.usefixtures("set_device_parameters")
@@ -15,7 +13,6 @@ class TestGetter(BaseTestGetters):
     @wrap_test_cases
     def test__parse_uptime(self, test_case):
         """Test _parse_uptime."""
-
         tests = [
             ['32w4d3h', 19710000, True],
             ['1w13d3h', 1738800, True],
@@ -39,7 +36,7 @@ class TestGetter(BaseTestGetters):
             get_config = self.device.get_config(retrieve=config)
 
             # FTOS doesn't have candidate config
-            #assert get_config['candidate'] == "" if config != "candidate" else True
+            # assert get_config['candidate'] == "" if config != "candidate" else True
             assert get_config['startup'] == "" if config != "startup" else True
             assert get_config['running'] == "" if config != "running" else True
 
