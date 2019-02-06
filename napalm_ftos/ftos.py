@@ -476,6 +476,38 @@ class FTOSDriver(NetworkDriver):
 
         return stats
 
+    def get_snmp_information(self):
+        command = "show running-config snmp"
+        snmp = self._send_command(command)
+
+        info = {
+            'chassis_id': u'', # not implemented
+            'community': {},
+            'contact': u'',
+            'location': u'',
+        }
+
+        for line in snmp.splitlines():
+            if 'community' in line:
+                m = re.search('^snmp-server community ([^\s]+) ([^\s]+)(?: ([^\s]+))?', line.strip())
+                if not m:
+                    continue
+                com = {
+                    'mode': m.group(2),
+                    'acl': u'N/A',
+                }
+                if m.group(3):
+                    com['acl'] = m.group(3)
+
+                info['community'][m.group(1)] = com
+
+            elif 'location' in line:
+                info['location'] = line.strip().replace('snmp-server location ', '').strip('"')
+            elif 'contact' in line:
+                info['contact'] = line.strip().replace('snmp-server contact ', '').strip('"')
+
+        return info
+
     def get_users(self):
         """FTOS implementation of get_users."""
 

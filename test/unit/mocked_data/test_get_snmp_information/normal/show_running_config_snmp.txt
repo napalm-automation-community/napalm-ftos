@@ -1,0 +1,4 @@
+snmp-server community public ro
+snmp-server community private rw myacl
+snmp-server contact "Napalm Automation"
+snmp-server location The Cloud

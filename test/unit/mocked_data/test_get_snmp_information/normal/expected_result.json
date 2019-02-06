@@ -1,0 +1,15 @@
+{
+  "contact": "Napalm Automation",
+  "chassis_id": "",
+  "community": {
+    "public": {
+      "mode": "ro",
+      "acl": "N/A"
+    },
+    "private": {
+      "mode": "rw",
+      "acl": "myacl"
+    }
+  },
+  "location": "The Cloud"
+}
