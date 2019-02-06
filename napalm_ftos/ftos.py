@@ -476,6 +476,32 @@ class FTOSDriver(NetworkDriver):
 
         return stats
 
+    def get_users(self):
+        """FTOS implementation of get_users."""
+
+        command = "show running-config users"
+        output = self._send_command(command)
+
+        ptr = re.compile('^username ([^\s]+).+(?:sha256-)?password \d+ ([^\s]+) (?:privilege (\d+))?')
+        users = {}
+        for line in output.splitlines():
+            m = ptr.search(line.strip())
+            if not m:
+                continue
+
+            g = m.groups()
+            user = {
+                'password': g[1],
+                'sshkeys': [],
+                'level': 0,
+            }
+            if g[2]:
+                user['level'] = int(g[2])
+
+            users[g[0]] = user
+
+        return users
+
     def is_alive(self):
         """FTOS implementation of is_alive."""
 

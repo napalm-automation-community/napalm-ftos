@@ -1,0 +1,12 @@
+{
+  "bob": {
+    "password": "b8b1b367c6bdda375519413e4045125b75e0201694ff29c3",
+    "sshkeys": [],
+    "level": 15
+  },
+  "alice": {
+    "password": "941523d38de0106f9a1ca96f754eb51994ff5211757f98d9d10cf122b053c16e0f38f888d1f4ca07f740508f94f37000",
+    "sshkeys": [],
+    "level": 0
+  }
+}

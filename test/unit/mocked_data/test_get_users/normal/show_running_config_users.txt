@@ -1,0 +1,5 @@
+!
+username alice password 7 sha256-password 8 941523d38de0106f9a1ca96f754eb51994ff5211757f98d9d10cf122b053c16e0f38f888d1f4ca07f740508f94f37000 role netadmin
+username bob password 7 b8b1b367c6bdda375519413e4045125b75e0201694ff29c3 privilege 15 role sysadmin
+!
+bsd-username alice secret  $1$tLfWzkZU$UmksJ2PyWMqjC8ZBcxA1i.
