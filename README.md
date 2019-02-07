@@ -6,6 +6,7 @@ NAPALM driver for Dell EMC/Force10 FTOS
 
 * close
 * get_arp_table
+* get_bgp_neighbors_detail
 * get_config
 * get_environment
 * get_facts
@@ -34,7 +35,6 @@ NAPALM driver for Dell EMC/Force10 FTOS
 * discard_config
 * get_bgp_config
 * get_bgp_neighbors
-* get_bgp_neighbors_detail
 * get_firewall_policies
 * get_interfaces_ip
 * get_ipv6_neighbors_table
