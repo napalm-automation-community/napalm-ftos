@@ -2,9 +2,9 @@
   "TenGigabitEthernet0/4": [
     {
       "remote_port_description": "eth0",
-      "remote_port": "aa:bb:cc:dd:ee:04",
+      "remote_port": "AA:BB:CC:DD:EE:04",
       "remote_system_description": " Debian GNU/Linux 9 (stretch) Linux",
-      "remote_chassis_id": "aa:bb:cc:dd:ee:04",
+      "remote_chassis_id": "AA:BB:CC:DD:EE:04",
       "remote_system_enable_capab": "Bridge Router",
       "parent_interface": "",
       "remote_system_capab": "Bridge WLAN Access Point Router Station only",
@@ -14,9 +14,9 @@
   "TenGigabitEthernet0/1": [
     {
       "remote_port_description": "eth0",
-      "remote_port": "aa:bb:cc:dd:ee:01",
+      "remote_port": "AA:BB:CC:DD:EE:01",
       "remote_system_description": " Debian GNU/Linux 9 (stretch) Linux",
-      "remote_chassis_id": "aa:bb:cc:dd:ee:01",
+      "remote_chassis_id": "AA:BB:CC:DD:EE:01",
       "remote_system_enable_capab": "Bridge Router",
       "parent_interface": "",
       "remote_system_capab": "Bridge WLAN Access Point Router Station only",
@@ -24,9 +24,9 @@
     },
     {
       "remote_port_description": "ix0",
-      "remote_port": "aa:bb:cc:dd:ee:05",
+      "remote_port": "AA:BB:CC:DD:EE:05",
       "remote_system_description": " FreeBSD 10.4-RELEASE-p12 #0: Thu Sep  6 09:05:35 UTC 2018",
-      "remote_chassis_id": "aa:bb:cc:dd:ee:05",
+      "remote_chassis_id": "AA:BB:CC:DD:EE:05",
       "remote_system_enable_capab": "Bridge Router",
       "parent_interface": "",
       "remote_system_capab": "Bridge WLAN Access Point Router Station only",
@@ -36,9 +36,9 @@
   "TenGigabitEthernet0/3": [
     {
       "remote_port_description": "eth0",
-      "remote_port": "aa:bb:cc:dd:ee:03",
+      "remote_port": "AA:BB:CC:DD:EE:03",
       "remote_system_description": " Debian GNU/Linux 9 (stretch) Linux",
-      "remote_chassis_id": "aa:bb:cc:dd:ee:03",
+      "remote_chassis_id": "AA:BB:CC:DD:EE:03",
       "remote_system_enable_capab": "Bridge Router",
       "parent_interface": "",
       "remote_system_capab": "Bridge WLAN Access Point Router Station only",
@@ -48,9 +48,9 @@
   "TenGigabitEthernet0/2": [
     {
       "remote_port_description": "eth0",
-      "remote_port": "aa:bb:cc:dd:ee:02",
+      "remote_port": "AA:BB:CC:DD:EE:02",
       "remote_system_description": " Debian GNU/Linux 9 (stretch) Linux",
-      "remote_chassis_id": "aa:bb:cc:dd:ee:02",
+      "remote_chassis_id": "AA:BB:CC:DD:EE:02",
       "remote_system_enable_capab": "Bridge Router",
       "parent_interface": "",
       "remote_system_capab": "Bridge WLAN Access Point Router Station only",

@@ -2,35 +2,33 @@
   "TenGigabitEthernet0/4": {
     "is_enabled": true,
     "description": "server04",
-    "last_flapped": 438960.0,
+    "last_flapped": 438960,
     "is_up": false,
-    "mac_address": "aa:bb:cc:dd:ee:04",
+    "mac_address": "AA:BB:CC:DD:EE:04",
     "speed": 0
   },
   "TenGigabitEthernet0/1": {
     "is_enabled": true,
     "description": "server01",
-    "last_flapped": 939600.0,
+    "last_flapped": 939600,
     "is_up": true,
-    "mac_address": "aa:bb:cc:dd:ee:01",
+    "mac_address": "AA:BB:CC:DD:EE:01",
     "speed": 10000
   },
   "TenGigabitEthernet0/3": {
     "is_enabled": false,
     "description": "server03",
-    "last_flapped": 694800.0,
+    "last_flapped": 694800,
     "is_up": false,
-    "mac_address":
-    "aa:bb:cc:dd:ee:03",
+    "mac_address": "AA:BB:CC:DD:EE:03",
     "speed": 10000
   },
   "TenGigabitEthernet0/2": {
     "is_enabled": true,
     "description": "server02",
-    "last_flapped": 604440.0,
+    "last_flapped": 604440,
     "is_up": true,
-    "mac_address":
-    "aa:bb:cc:dd:ee:02",
+    "mac_address": "AA:BB:CC:DD:EE:02",
     "speed": 10000
   }
 }

@@ -24,7 +24,7 @@ import socket
 import types
 
 from napalm.base.helpers import textfsm_extractor
-from napalm.base.helpers import canonical_interface_name
+from napalm.base.helpers import canonical_interface_name, mac, ip
 from napalm.base.netmiko_helpers import netmiko_args
 
 from napalm.base import NetworkDriver
@@ -151,14 +151,24 @@ class FTOSDriver(NetworkDriver):
         command = "show arp"
         arp_entries = self._send_command(command)
         arp_entries = textfsm_extractor(self, 'show_arp', arp_entries)
-        for idx, _ in enumerate(arp_entries):
+
+        table = []
+        for idx, arp in enumerate(arp_entries):
+            entry = {
+                'interface': arp['interface'],
+                'ip': ip(arp['ip']),
+                'mac': mac(arp['mac']),
+            }
+
             try:
                 # age is given in minutes
-                arp_entries[idx]['age'] = float(arp_entries[idx]['age']) * 60
+                entry['age'] = float(arp['age']) * 60
             except ValueError:
-                arp_entries[idx]['age'] = -1
+                entry['age'] = -1.0
 
-        return arp_entries
+            table.append(entry)
+
+        return table
 
     def get_bgp_neighbors_detail(self, neighbor_address=u''):
         """FTOS implementation of get_bgp_neighbors_detail."""
@@ -184,6 +194,11 @@ class FTOSDriver(NetworkDriver):
             for k in ['local_address_configured', 'multihop', 'multipath', \
                 'suppress_4byte_as', 'local_as_prepend', 'remove_private_as']:
                 entry[k] = False
+
+            # case some ip addresses
+            for k in ['local_address', 'router_id', 'remote_address']:
+                if len(entry[k].strip()) > 0:
+                    entry[k] = ip(entry[k])
 
             # cast some integers
             for k in ['remote_as', 'local_port', 'remote_port', 'input_messages', \
@@ -375,6 +390,11 @@ class FTOSDriver(NetworkDriver):
             # get pretty interface name
             local_intf = canonical_interface_name(lldp_entry.pop('local_interface'))
 
+            # cast some mac addresses
+            for k in ['remote_port', 'remote_chassis_id']:
+                if len(lldp_entry[k].strip()) > 0:
+                    lldp_entry[k] = mac(lldp_entry[k])
+
             # not implemented
             lldp_entry['parent_interface'] = u''
 
@@ -391,6 +411,7 @@ class FTOSDriver(NetworkDriver):
 
         mac_table = []
         for idx, entry in enumerate(mac_entries):
+            entry['mac'] = mac(entry['mac'])
             entry['interface'] = canonical_interface_name(entry['interface'])
             entry['vlan'] = int(entry['vlan'])
             entry['static'] = (entry['static'] == 'Static')
@@ -421,7 +442,7 @@ class FTOSDriver(NetworkDriver):
                 'is_enabled': False,
                 'is_up': False,
                 'description': entry['description'],
-                'mac_address': entry['mac_address'],
+                'mac_address': mac(entry['mac_address']),
                 'last_flapped': 0.0, # in seconds
                 'speed': 0, # in megabits
             }
@@ -499,7 +520,7 @@ class FTOSDriver(NetworkDriver):
 
         peers = {}
         for idx, entry in enumerate(entries):
-            peers[entry['remote']] = {}
+            peers[ip(entry['remote'])] = {}
 
         return peers
 
@@ -526,6 +547,10 @@ class FTOSDriver(NetworkDriver):
                     entry[key] = float(entry[key])
                 except ValueError:
                     entry[key] = 0.0
+            # cast ips
+            for k in ['referenceid', 'remote']:
+                if len(entry[k].strip()) > 0:
+                    entry[k] = ip(entry[k])
 
             entry['synchronized'] = (entry['type'] == '*')
             stats.append(entry)
@@ -648,7 +673,7 @@ class FTOSDriver(NetworkDriver):
                 'rtt_stddev': 0.0, # not implemented
                 'results': [
                     {
-                        'ip_address': destination,
+                        'ip_address': ip(destination),
                         'rtt': float(g[3]),
                     }
                 ],
@@ -693,7 +718,7 @@ class FTOSDriver(NetworkDriver):
             for probe in probes:
                 trace[ttl]['probes'][ctr] = {
                     'rtt': float(probe),
-                    'ip_address': unicode(entry['hop']),
+                    'ip_address': ip(unicode(entry['hop'])),
                     'host_name': unicode(entry['hop']),
                 }
                 ctr += 1
