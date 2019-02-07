@@ -571,7 +571,7 @@ class FTOSDriver(NetworkDriver):
         m = re.search('% Error: (.+)', result)
         if m:
             return {
-                'error': m.group(0)
+                'error': m.group(1)
             }
 
         # try to parse the output
@@ -597,4 +597,51 @@ class FTOSDriver(NetworkDriver):
                     }
                 ],
             }
+        }
+
+    def traceroute(self, destination, source=u'', ttl=255, timeout=2, vrf=u''):
+        """FTOS implementation of traceroute."""
+        # source, ttl and timeout are not implemented and therefore ignored
+        cmd = ["traceroute"]
+        if len(vrf.strip()) > 0:
+            cmd.append("vrf %s" % vrf)
+        cmd.append(destination)
+
+        command = ' '.join(cmd)
+        result = self._send_command(command)
+
+        # check if output holds an error
+        m = re.search('% Error: (.+)', result)
+        if m:
+            return {
+                'error': m.group(1)
+            }
+
+        # process results of succesful traceroute
+        result = textfsm_extractor(self, 'traceroute', result)
+        trace = {}
+        ttl = None
+        for idx, entry in enumerate(result):
+            if len(entry['ttl'].strip()) > 0 and ttl != int(entry['ttl']):
+                ttl = int(entry['ttl'])
+                trace[ttl] = {'probes': {}}
+                ctr = 1
+
+            # rewrite probes for easier splitting
+            probes = re.sub('\s+', ' ', entry['probes'].replace('ms', '').strip())
+            if len(probes) is 0:
+                probes = []
+            else:
+                probes = probes.split(' ')
+
+            for probe in probes:
+                trace[ttl]['probes'][ctr] = {
+                    'rtt': float(probe),
+                    'ip_address': unicode(entry['hop']),
+                    'host_name': unicode(entry['hop']),
+                }
+                ctr += 1
+
+        return {
+            'success': trace,
         }
