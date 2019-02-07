@@ -1,0 +1,41 @@
+{
+  "Loopback 1": {
+    "ipv6": {
+      "fde2:1afe:811::1": {
+        "prefix_length": 48
+      },
+      "fe80::da9e:f3ff:feb7:3aa2": {
+        "prefix_length": 64
+      }
+    }
+  },
+  "Loopback 0": {
+    "ipv4": {
+      "10.170.255.2": {
+        "prefix_length": 32
+      }
+    },
+    "ipv6": {
+      "fe80::da9e:f3ff:feb7:3aa2": {
+        "prefix_length": 64
+      },
+      "fd3f:12d:6291::1": {
+        "prefix_length": 128
+      }
+    }
+  },
+  "GigabitEthernet 1/46": {
+    "ipv4": {
+      "10.170.252.4": {
+        "prefix_length": 31
+      }
+    }
+  },
+  "Vlan 10": {
+    "ipv4": {
+      "10.154.252.3": {
+        "prefix_length": 29
+      }
+    }
+  }
+}

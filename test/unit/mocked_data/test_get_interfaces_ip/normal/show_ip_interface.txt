@@ -1,0 +1,555 @@
+GigabitEthernet 1/1 is up, line protocol is up
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/2 is up, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/3 is up, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/4 is up, line protocol is up
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/5 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/6 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/7 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/8 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/9 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/10 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/11 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/12 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/13 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/14 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/15 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/16 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/17 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/18 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/19 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/20 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/21 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/22 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/23 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/24 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/25 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+GigabitEthernet 1/44 is up, line protocol is up
+Internet address is not set
+IP MTU is 9198 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/45 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/46 is up, line protocol is up
+Internet address is 10.170.252.4/31
+Broadcast address is 10.170.252.5
+Address determined by config file
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/47 is up, line protocol is up
+Internet address is not set
+IP MTU is 9198 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+GigabitEthernet 1/48 is up, line protocol is up
+Internet address is not set
+IP MTU is 9198 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+TenGigabitEthernet 1/49 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+TenGigabitEthernet 1/50 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+TenGigabitEthernet 1/51 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+TenGigabitEthernet 1/52 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+ManagementEthernet 1/1 is down, line protocol is down
+Internet address is not set
+Virtual-IP address is not set
+
+
+ManagementEthernet 2/1 is down, line protocol is not present
+Internet address is not set
+
+
+ManagementEthernet 3/1 is down, line protocol is not present
+Internet address is not set
+
+
+ManagementEthernet 4/1 is down, line protocol is not present
+Internet address is not set
+
+
+ManagementEthernet 5/1 is down, line protocol is not present
+Internet address is not set
+
+
+ManagementEthernet 6/1 is down, line protocol is not present
+Internet address is not set
+
+
+Loopback 0 is up, line protocol is up
+Internet address is 10.170.255.2/32
+Broadcast address is 10.170.255.2
+Address determined by config file
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+Port-channel 1 is up, line protocol is up
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+Port-channel 2 is up, line protocol is down(minimum links not up)
+Internet address is not set
+IP MTU is 9198 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+Port-channel 3 is up, line protocol is down(minimum links not up)
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+Port-channel 4 is up, line protocol is up
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+Port-channel 100 is up, line protocol is up
+Internet address is not set
+IP MTU is 9198 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+Port-channel 101 is up, line protocol is up
+Internet address is not set
+IP MTU is 9198 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+Port-channel 102 is up, line protocol is up
+Internet address is not set
+IP MTU is 9198 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+Vlan 1 is down, line protocol is down
+Internet address is not set
+IP MTU is 1500 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported
+
+
+Vlan 10 is up, line protocol is up
+Internet address is 10.154.252.3/29
+Broadcast address is 10.154.252.7
+Address determined by config file
+IP MTU is 9198 bytes
+Directed broadcast forwarding is disabled
+Proxy ARP is enabled
+Split Horizon is enabled
+Poison Reverse is disabled
+ICMP redirects are not sent
+ICMP unreachables are not sent
+IP unicast RPF check is not supported

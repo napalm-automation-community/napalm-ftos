@@ -1,0 +1,6 @@
+Loopback 0                       [up/up]
+    fe80::da9e:f3ff:feb7:3aa2
+    fd3f:12d:6291::1/128
+Loopback 1                       [up/up]
+    fe80::da9e:f3ff:feb7:3aa2
+    fde2:1afe:811::1/48

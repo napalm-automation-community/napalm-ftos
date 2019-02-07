@@ -510,6 +510,72 @@ class FTOSDriver(NetworkDriver):
 
         return interfaces
 
+    def get_interfaces_ip(self):
+        """FTOS implementation of get_interfaces_ip."""
+        addr = {}
+
+        # get IPv4 info
+        ip_cmd = "show ip interface"
+        ip_res = self._send_command(ip_cmd)
+
+        # parse IP addresses
+        iface = None
+        for line in ip_res.splitlines():
+            # interface line
+            m = re.search('^(\w+( \d+(\/\d+)?)?) is \w+', line)
+            if m:
+                iface = m.group(1)
+                continue
+
+            # address line
+            m = re.search('^Internet address is ([0-9\.]+)(?:\/(\d+))?', line)
+            if m:
+                if iface not in addr:
+                    addr[iface] = {u'ipv4': {}}
+
+                address = ip(m.group(1))
+                mask = 32
+                if m.group(2):
+                    mask = int(m.group(2))
+                    address = address.replace('/%d' % mask, '')
+                addr[iface][u'ipv4'][address] = {
+                    'prefix_length': mask
+                }
+
+        ip6_cmd = "show ipv6 interface brief"
+        ip6_res = self._send_command(ip6_cmd)
+
+        # parse IPv6 addresses
+        iface = None
+        for line in ip6_res.splitlines():
+            # interface line
+            m = re.search('^(\w+( \d+(\/\d+)?)?)\s+', line)
+            if m:
+                iface = m.group(1)
+                continue
+
+            # address line
+            m = re.search('^\s*([a-f0-9:]+)(?:\/(\d+))?', line)
+            if m:
+                if iface not in addr:
+                    addr[iface] = {u'ipv6': {}}
+                elif u'ipv6' not in addr[iface]:
+                    addr[iface][u'ipv6'] = {}
+
+                address = ip(m.group(1))
+                if m.group(2):
+                    mask = int(m.group(2))
+                    address = address.replace('/%d' % mask, '')
+                elif re.search('^fe80', address):
+                    mask = 64
+                else:
+                    mask = 128
+                addr[iface][u'ipv6'][address] = {
+                    'prefix_length': mask
+                }
+
+        return addr
+
     def _get_ntp_assoc(self):
         ntp_entries = self._send_command("show ntp associations")
         return textfsm_extractor(self, 'show_ntp_associations', ntp_entries)
