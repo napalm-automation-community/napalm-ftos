@@ -1,5 +1,5 @@
 {
-  "TenGigabitEthernet0/4": {
+  "TenGigabitEthernet 0/4": {
     "tx_multicast_packets": 98540360,
     "tx_discards": 0,
     "tx_octets": 150254456992933,
@@ -13,7 +13,7 @@
     "rx_discards": 1350866,
     "rx_unicast_packets": 92716469554
   },
-  "TenGigabitEthernet0/1": {
+  "TenGigabitEthernet 0/1": {
     "tx_multicast_packets": 4291459,
     "tx_discards": 0,
     "tx_octets": 3247499732460,
@@ -27,7 +27,7 @@
     "rx_discards": 31467,
     "rx_unicast_packets": 1744579038
   },
-  "TenGigabitEthernet0/3": {
+  "TenGigabitEthernet 0/3": {
     "tx_multicast_packets": 98559194,
     "tx_discards": 0,
     "tx_octets": 29298150755434,
@@ -41,7 +41,7 @@
     "rx_discards": 678665,
     "rx_unicast_packets": 25605112790
   },
-  "TenGigabitEthernet0/2": {
+  "TenGigabitEthernet 0/2": {
     "tx_multicast_packets": 98488223,
     "tx_discards": 0,
     "tx_octets": 377975970443955,

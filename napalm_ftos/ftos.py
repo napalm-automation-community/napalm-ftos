@@ -43,6 +43,17 @@ DAY_SECONDS = 24 * HOUR_SECONDS
 WEEK_SECONDS = 7 * DAY_SECONDS
 YEAR_SECONDS = 365 * DAY_SECONDS
 
+# overload canonical_interface_name and apply some FTOS specifics
+def _canonical_interface_name(iface):
+    iface = canonical_interface_name(iface)
+
+    # add whitespace in TenGigabitEthernet names
+    m = re.search('^(TenGigabitEthernet)(\d+\/\d+)$', iface)
+    if m:
+        iface = ' '.join(m.groups())
+
+    return iface
+
 class FTOSDriver(NetworkDriver):
     """NAPALM Dell Force10 FTOS Handler."""
 
@@ -388,7 +399,7 @@ class FTOSDriver(NetworkDriver):
                 continue
 
             # get pretty interface name
-            local_intf = canonical_interface_name(lldp_entry.pop('local_interface'))
+            local_intf = _canonical_interface_name(lldp_entry.pop('local_interface'))
 
             # cast some mac addresses
             for k in ['remote_port', 'remote_chassis_id']:
@@ -412,7 +423,7 @@ class FTOSDriver(NetworkDriver):
         mac_table = []
         for idx, entry in enumerate(mac_entries):
             entry['mac'] = mac(entry['mac'])
-            entry['interface'] = canonical_interface_name(entry['interface'])
+            entry['interface'] = _canonical_interface_name(entry['interface'])
             entry['vlan'] = int(entry['vlan'])
             entry['static'] = (entry['static'] == 'Static')
             entry['active'] = (entry['active'] == 'Active')
@@ -465,7 +476,7 @@ class FTOSDriver(NetworkDriver):
             iface['last_flapped'] = float(self._parse_uptime(entry['last_flapped'], True))
 
             # add interface data to dict
-            local_intf = canonical_interface_name(entry['iface_name'])
+            local_intf = _canonical_interface_name(entry['iface_name'])
             interfaces[local_intf] = iface
 
         return interfaces
@@ -505,7 +516,7 @@ class FTOSDriver(NetworkDriver):
                     iface[dst] = 0
 
             # add interface data to dict
-            local_intf = canonical_interface_name(entry['iface_name'])
+            local_intf = _canonical_interface_name(entry['iface_name'])
             interfaces[local_intf] = iface
 
         return interfaces

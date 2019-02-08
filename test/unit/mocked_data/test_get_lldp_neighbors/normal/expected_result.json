@@ -1,11 +1,11 @@
 {
-  "TenGigabitEthernet0/4": [
+  "TenGigabitEthernet 0/4": [
     {
       "hostname": "server04",
       "port": "eth0"
     }
   ],
-  "TenGigabitEthernet0/1": [
+  "TenGigabitEthernet 0/1": [
     {
       "hostname": "server01",
       "port": "eth0"
@@ -15,13 +15,13 @@
       "port": "ix0"
     }
   ],
-  "TenGigabitEthernet0/3": [
+  "TenGigabitEthernet 0/3": [
     {
       "hostname": "server03",
       "port": "eth0"
     }
   ],
-  "TenGigabitEthernet0/2": [
+  "TenGigabitEthernet 0/2": [
     {
       "hostname": "server02",
       "port": "eth0"

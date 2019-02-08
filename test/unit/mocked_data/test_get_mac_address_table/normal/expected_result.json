@@ -2,7 +2,7 @@
   {
     "vlan": 212,
     "last_move": -1,
-    "interface": "TenGigabitEthernet0/49",
+    "interface": "TenGigabitEthernet 0/49",
     "mac": "00:00:5E:00:01:01",
     "static": false,
     "active": true,
@@ -20,7 +20,7 @@
   {
     "vlan": 212,
     "last_move": -1,
-    "interface": "TenGigabitEthernet0/49",
+    "interface": "TenGigabitEthernet 0/49",
     "mac": "00:19:E2:BD:27:C1",
     "static": false,
     "active": true,
@@ -29,7 +29,7 @@
   {
     "vlan": 212,
     "last_move": -1,
-    "interface": "TenGigabitEthernet0/49",
+    "interface": "TenGigabitEthernet 0/49",
     "mac": "74:8E:F8:FE:64:0B",
     "static": false,
     "active": true,
@@ -56,7 +56,7 @@
   {
     "vlan": 300,
     "last_move": -1,
-    "interface": "TenGigabitEthernet0/49",
+    "interface": "TenGigabitEthernet 0/49",
     "mac": "54:9F:35:01:D7:90",
     "static": false,
     "active": true,
@@ -65,7 +65,7 @@
   {
     "vlan": 300,
     "last_move": -1,
-    "interface": "TenGigabitEthernet0/49",
+    "interface": "TenGigabitEthernet 0/49",
     "mac": "54:9F:35:0B:29:D8",
     "static": false,
     "active": true,
@@ -74,7 +74,7 @@
   {
     "vlan": 300,
     "last_move": -1,
-    "interface": "TenGigabitEthernet0/49",
+    "interface": "TenGigabitEthernet 0/49",
     "mac": "74:8E:F8:FE:64:0B",
     "static": false,
     "active": true,

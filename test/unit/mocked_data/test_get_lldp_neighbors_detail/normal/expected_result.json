@@ -1,5 +1,5 @@
 {
-  "TenGigabitEthernet0/4": [
+  "TenGigabitEthernet 0/4": [
     {
       "remote_port_description": "eth0",
       "remote_port": "AA:BB:CC:DD:EE:04",
@@ -11,7 +11,7 @@
       "remote_system_name": "server04"
     }
   ],
-  "TenGigabitEthernet0/1": [
+  "TenGigabitEthernet 0/1": [
     {
       "remote_port_description": "eth0",
       "remote_port": "AA:BB:CC:DD:EE:01",
@@ -33,7 +33,7 @@
       "remote_system_name": "server05"
     }
   ],
-  "TenGigabitEthernet0/3": [
+  "TenGigabitEthernet 0/3": [
     {
       "remote_port_description": "eth0",
       "remote_port": "AA:BB:CC:DD:EE:03",
@@ -45,7 +45,7 @@
       "remote_system_name": "server03"
     }
   ],
-  "TenGigabitEthernet0/2": [
+  "TenGigabitEthernet 0/2": [
     {
       "remote_port_description": "eth0",
       "remote_port": "AA:BB:CC:DD:EE:02",
