@@ -1,0 +1,24 @@
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+sudo: false
+language: python
+python:
+- 2.7
+- 3.6
+install:
+- pip install tox-travis
+- pip install coveralls
+deploy:
+  provider: pypi
+  user: skoef
+  password:
+    secure: RfMff2jEs4wT7+J6ZkMjYtYhC8rudKnoBV6ihZyXkZVnyWwDdn9zMOnqjhSHEmoh067iwJK92wOY9zz6A42U73fZ/aq77Al1cHR1pbQFUGzP7103grWw6HvAuC1xa1S5NxOwxcEj/nSJezK0+B20ljcceUFOSA+Ue4e67NXG/XATfVcjpz3L4Tt3LqX/vyGzL27PVVJtNqVp7n/8zrid0fLAAjEJluq4UBNrGsHUCoz6rvOokInu1iSMGG/A6KF8vibJsX2/1lqVkpCN1jnFtQakMZ0WSG6RxdWGao2baNjmif+zwDQWjL5KeDg4+Vl0ePDNQqIKd0ehaSS4yoh8qf+wnxFPQv4HUlC2PtYA3zFZvqv47SAQyUbe5jO4CSRrjJ9VZy4zo63lj5gDdyhbDbdUk8iacRhTaMYgBqmo3OKEcx8pPNcHVBuFQ0dejJhk1HfbgatT26000oHxQ5rbcuG+RjBQTX7dbbaZpCsihHRtDinz9sSElUGSJ3JqntfhlMeQUJlZWLHBTefLXXyNNcZ7Wdoy3p01CesvXjYHgOAXZMbvbs/hyQEjjW3cBCj7QeKvCS+oKswlvjD6erekf9UvIxeWbolMj1sCIv/s1hwXxdH/3eb5RumT8q4PL3R+Ywg8+NlStQYeW/p8BtDoUxwSCqIQxGo2nCTIFdbHFHI=
+  on:
+    tags: true
+    branch: master
+script:
+- tox
+after_success:
+- coveralls

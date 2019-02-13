@@ -1,3 +1,5 @@
+"""setup.py file."""
+
 from setuptools import setup, find_packages
 
 __author__ = 'Reinier Schoof <reinier@skoef.nl>'
@@ -5,12 +7,15 @@ __author__ = 'Reinier Schoof <reinier@skoef.nl>'
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+
 def parse_reqs(file_path):
+    """Parse requirements from file."""
     with open(file_path, 'rt') as fobj:
         lines = map(str.strip, fobj)
         lines = filter(None, lines)
         lines = filter(lambda x: not x.startswith("#"), lines)
         return tuple(lines)
+
 
 setup(
     name="napalm-ftos",
@@ -18,7 +23,7 @@ setup(
     packages=find_packages(),
     author="Reinier Schoof",
     author_email="reinier@skoef.nl",
-    description="Network Automation and Programmability Abstraction Layer with Multivendor support, driver for Force10 FTOS",
+    description="NAPALM driver for Force10 FTOS",
     long_description_content_type="text/markdown",
     long_description=long_description,
     classifiers=[

@@ -7,6 +7,7 @@
   "serial_number": "CN1234847E0213",
   "model": "DELL MXL 10/40GbE",
   "interface_list": [
+    "FortyGigabitEthernet 0/33",
     "TenGigabitEthernet 0/1",
     "TenGigabitEthernet 0/2",
     "TenGigabitEthernet 0/3",
