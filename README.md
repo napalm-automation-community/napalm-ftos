@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.com/napalm-automation-community/napalm-ftos.svg?branch=master)](https://travis-ci.org/napalm-automation-community/napalm-ftos)
+[![PyPI](https://img.shields.io/pypi/v/napalm-ftos.svg)](https://pypi.python.org/pypi/napalm-ftos)
+[![Supported python versions](https://img.shields.io/pypi/pyversions/napalm-ftos.svg)](https://pypi.python.org/pypi/napalm-ftos/)
+
 # napalm-ftos
 
 NAPALM driver for Dell EMC/Force10 FTOS
