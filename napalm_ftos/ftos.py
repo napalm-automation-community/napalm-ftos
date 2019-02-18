@@ -13,46 +13,26 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-"""
-Napalm driver for FTOS.
-
-Read https://napalm.readthedocs.io for more information.
-"""
+"""Napalm driver for Dell/Force10 FTOS."""
 
 import re
 import socket
-import types
 
 from napalm.base.helpers import textfsm_extractor
-from napalm.base.helpers import canonical_interface_name, mac, ip
+from napalm.base.helpers import mac, ip
 from napalm.base.netmiko_helpers import netmiko_args
+from napalm.base.utils import py23_compat
 
 from napalm.base import NetworkDriver
-from napalm.base.exceptions import (
-    ConnectionException,
-    SessionLockedException,
-    MergeConfigException,
-    ReplaceConfigException,
-    CommandErrorException,
+from napalm.base.exceptions import ConnectionException
+
+from napalm_ftos.utils import (
+    canonical_interface_name,
+    parse_uptime,
+    transform_lldp_capab,
+    prep_addr
 )
 
-# Easier to store these as constants
-MINUTE_SECONDS = 60
-HOUR_SECONDS = 60 * MINUTE_SECONDS
-DAY_SECONDS = 24 * HOUR_SECONDS
-WEEK_SECONDS = 7 * DAY_SECONDS
-YEAR_SECONDS = 365 * DAY_SECONDS
-
-# overload canonical_interface_name and apply some FTOS specifics
-def _canonical_interface_name(iface):
-    iface = canonical_interface_name(iface)
-
-    # add whitespace in TenGigabitEthernet names
-    m = re.search('^(TenGigabitEthernet)(\d+\/\d+)$', iface)
-    if m:
-        iface = ' '.join(m.groups())
-
-    return iface
 
 class FTOSDriver(NetworkDriver):
     """NAPALM Dell Force10 FTOS Handler."""
@@ -71,10 +51,6 @@ class FTOSDriver(NetworkDriver):
         self.netmiko_optional_args = netmiko_args(optional_args)
 
     def _send_command(self, command):
-        """Wrapper for self.device.send.command().
-
-        If command is a list will iterate through commands until valid command.
-        """
         try:
             if isinstance(command, list):
                 for cmd in command:
@@ -85,66 +61,7 @@ class FTOSDriver(NetworkDriver):
                 output = self.device.send_command(command)
             return output
         except (socket.error, EOFError) as e:
-            raise ConnectionClosedException(str(e))
-
-    @staticmethod
-    def _parse_uptime(uptime_str, short=False):
-        """
-        Extract the uptime string from the given FTOS Device given in form of
-        32 week(s), 6 day(s), 10 hour(s), 39 minute(s)
-
-        When short is set to True, expect the format to be either hh:mm:ss or
-        in form 32w6d10h
-
-        Return the uptime in seconds as an integer
-        """
-        # Initialize to zero
-        (years, weeks, days, hours, minutes, seconds) = (0, 0, 0, 0, 0, 0)
-
-        uptime_str = uptime_str.strip()
-        if short:
-            # until a day has passed, time is expressed in hh:mm:ss
-            # after a day, time is expressed as 1d22h23m or even 20w4d21h
-            # perhaps even in years at some point
-
-            match = re.compile('^(\d+):(\d+):(\d+)$').search(uptime_str)
-            if match:
-                (hours, minutes, seconds) = (int(match.group(1)), int(match.group(2)), int(match.group(3)))
-            else:
-                match = re.compile('(\d+w)?(\d+d)?(\d+h)?(\d+m)?').search(uptime_str)
-                if match:
-                    for m in match.groups():
-                        if m is None:
-                            continue
-                        elif m.endswith('y'): # year
-                            years = int(m[:-1])
-                        elif m.endswith('w'): # week
-                            weeks = int(m[:-1])
-                        elif m.endswith('d'): # day
-                            days = int(m[:-1])
-                        elif m.endswith('h'): # hour
-                            hours = int(m[:-1])
-                        elif m.endswith('m'): # minute
-                            minutes = int(m[:-1])
-        else:
-            # in longer format, uptime is expressed in form of
-            # 32 week(s), 6 day(s), 10 hour(s), 39 minute(s)
-            time_list = uptime_str.split(', ')
-            for element in time_list:
-                if re.search("year", element):
-                    years = int(element.split()[0])
-                elif re.search("w(ee)?k", element):
-                    weeks = int(element.split()[0])
-                elif re.search("day", element):
-                    days = int(element.split()[0])
-                elif re.search("h(ou)?r", element):
-                    hours = int(element.split()[0])
-                elif re.search("min(ute)?", element):
-                    minutes = int(element.split()[0])
-
-        return (years * YEAR_SECONDS) + (weeks * WEEK_SECONDS) + \
-                 (days * DAY_SECONDS) + (hours * HOUR_SECONDS) + \
-                 (minutes * MINUTE_SECONDS) + seconds
+            raise ConnectionException(str(e))
 
     def open(self):
         """Open a connection to the device."""
@@ -157,8 +74,12 @@ class FTOSDriver(NetworkDriver):
         """Close the connection to the device."""
         self._netmiko_close()
 
-    def get_arp_table(self):
+    def get_arp_table(self, vrf=u''):
         """FTOS implementation of get_arp_table."""
+        if vrf:
+            msg = "VRF support has not been added for this getter on this platform."
+            raise NotImplementedError(msg)
+
         command = "show arp"
         arp_entries = self._send_command(command)
         arp_entries = textfsm_extractor(self, 'show_arp', arp_entries)
@@ -191,64 +112,60 @@ class FTOSDriver(NetworkDriver):
         neighbors = self._send_command(command)
         neighbors = textfsm_extractor(self, 'show_ip_bgp_neighbors', neighbors)
 
-        table = {}
+        table = {u'global': {}}
         for idx, entry in enumerate(neighbors):
             # TODO: couldn't detect VRF from output
             vrf = u'global'
 
-            if vrf not in table:
-                table[vrf] = {}
-
-            # set some flags
-            entry['up'] = (entry['connection_state'] == 'ESTABLISHED')
-            # unimplemented flags
-            for k in ['local_address_configured', 'multihop', 'multipath', \
-                'suppress_4byte_as', 'local_as_prepend', 'remove_private_as']:
-                entry[k] = False
-
-            # case some ip addresses
-            for k in ['local_address', 'router_id', 'remote_address']:
-                if len(entry[k].strip()) > 0:
-                    entry[k] = ip(entry[k])
+            neighbor = {
+                "up": (entry['connection_state'] == 'ESTABLISHED'),
+                "local_as": -1,  # unimplemented
+                "router_id": ip(entry['router_id']),
+                "local_address": py23_compat.text_type(entry['local_address']),
+                "routing_table": u'',  # unimplemented
+                "local_address_configured": False,  # unimplemented
+                "local_port": entry['local_port'],
+                "remote_address": ip(entry['remote_address']),
+                "multihop": False,  # unimplemented
+                "multipath": False,  # unimplemented
+                "remove_private_as": False,  # unimplemented
+                "import_policy": u'',  # unimplemented
+                "export_policy": u'',  # unimplemented
+                "connection_state": entry['connection_state'],
+                "previous_connection_state": u'',  # unimplemented
+                "last_event": u'',  # unimplemented
+                "suppress_4byte_as": False,  # unimplemented
+                "local_as_prepend": False,  # unimplemented
+                "configured_holdtime": -1,  # unimplemented
+                "configured_keepalive": -1,  # unimplemented
+                "active_prefix_count": -1,  # unimplemented
+                "received_prefix_count": -1,  # unimplemented
+                "suppressed_prefix_count": -1,  # unimplemented
+            }
 
             # cast some integers
-            for k in ['remote_as', 'local_port', 'remote_port', 'input_messages', \
-                'output_messages', 'input_updates', 'output_updates', 'messages_queued_out', \
-                'holdtime', 'keepalive', 'accepted_prefix_count', 'advertised_prefix_count', \
-                'flap_count']:
+            for k in ['remote_as', 'local_port', 'remote_port', 'input_messages',
+                      'output_messages', 'input_updates', 'output_updates',
+                      'messages_queued_out', 'holdtime', 'keepalive',
+                      'accepted_prefix_count', 'advertised_prefix_count',
+                      'flap_count']:
                 try:
-                    entry[k] = int(entry[k])
+                    neighbor[k] = int(entry[k])
                 except ValueError:
-                    entry[k] = -1
+                    neighbor[k] = -1
 
-            # unimplemented integers
-            for k in ['local_as', 'configured_holdtime', 'configured_keepalive', \
-                'active_prefix_count', 'received_prefix_count', 'suppressed_prefix_count']:
-                entry[k] = -1
-
-            # unimplemented strings
-            for k in ['export_policy', 'import_policy', 'last_event', 'previous_connection_state', \
-                'routing_table']:
-                entry[k] = u''
-
-            # make sure all strings are unicode
-            for k in entry.keys():
-                if isinstance(entry[k], str):
-                    entry[k] = unicode(entry[k])
-
-            # add neighbor to table
             if entry['remote_as'] not in table[vrf]:
-                table[vrf][entry['remote_as']] = []
-            table[vrf][entry['remote_as']].append(entry)
+                table[vrf][int(entry['remote_as'])] = []
+            table[vrf][int(entry['remote_as'])].append(neighbor)
 
         return table
 
     def get_config(self, retrieve='all'):
         """FTOS implementation of get_config."""
         config = {
-            'startup': '',
-            'running': '',
-            'candidate': u'Not implemented for FTOS', # not implemented
+            'startup':   u'',
+            'running':   u'',
+            'candidate': u'Not implemented for FTOS',  # not implemented
         }
 
         if retrieve in ['all', 'running']:
@@ -289,8 +206,8 @@ class FTOSDriver(NetworkDriver):
             # power
             env['power'][name] = {
                 'status': (entry['volt_status'] == 'ok'),
-                'capacity': -1.0, # not implemented
-                'output': -1.0, # not implemented
+                'capacity': -1.0,  # not implemented
+                'output': -1.0,    # not implemented
             }
 
         # get CPU data
@@ -312,7 +229,6 @@ class FTOSDriver(NetworkDriver):
 
     def get_facts(self):
         """FTOS implementation of get_facts."""
-
         # default values.
         facts = {
             'uptime': -1,
@@ -331,7 +247,7 @@ class FTOSDriver(NetworkDriver):
         for line in show_ver.splitlines():
             if line.startswith('Up Time'):
                 uptime_str = line.split(': ')[1]
-                facts['uptime'] = self._parse_uptime(uptime_str)
+                facts['uptime'] = parse_uptime(uptime_str)
             elif line.startswith('Mfg By'):
                 facts['vendor'] = line.split(': ')[1].strip()
             elif ' OS Version' in line:
@@ -342,7 +258,7 @@ class FTOSDriver(NetworkDriver):
                 facts['model'] = line.split(': ')[1].strip()
 
         # invoke get_interfaces and list interfaces
-        facts['interface_list'] = self.get_interfaces().keys()
+        facts['interface_list'] = sorted(self.get_interfaces().keys())
 
         # get hostname from running config
         config = self.get_config('running')['running']
@@ -356,7 +272,6 @@ class FTOSDriver(NetworkDriver):
 
     def get_lldp_neighbors(self):
         """FTOS implementation of get_lldp_neighbors."""
-
         lldp = {}
         neighbors_detail = self.get_lldp_neighbors_detail()
         for intf_name, entries in neighbors_detail.items():
@@ -373,7 +288,6 @@ class FTOSDriver(NetworkDriver):
 
     def get_lldp_neighbors_detail(self, interface=''):
         """FTOS implementation of get_lldp_neighbors_detail."""
-
         if interface:
             command = "show lldp neighbors interface {} detail".format(interface)
         else:
@@ -399,12 +313,16 @@ class FTOSDriver(NetworkDriver):
                 continue
 
             # get pretty interface name
-            local_intf = _canonical_interface_name(lldp_entry.pop('local_interface'))
+            local_intf = canonical_interface_name(lldp_entry.pop('local_interface'))
 
             # cast some mac addresses
             for k in ['remote_port', 'remote_chassis_id']:
                 if len(lldp_entry[k].strip()) > 0:
                     lldp_entry[k] = mac(lldp_entry[k])
+
+            # transform capabilities
+            for k in ['remote_system_capab', 'remote_system_enable_capab']:
+                lldp_entry[k] = transform_lldp_capab(lldp_entry[k])
 
             # not implemented
             lldp_entry['parent_interface'] = u''
@@ -416,19 +334,18 @@ class FTOSDriver(NetworkDriver):
 
     def get_mac_address_table(self):
         """FTOS implementation of get_mac_address_table."""
-
         mac_entries = self._send_command("show mac-address-table")
         mac_entries = textfsm_extractor(self, 'show_mac-address-table', mac_entries)
 
         mac_table = []
         for idx, entry in enumerate(mac_entries):
             entry['mac'] = mac(entry['mac'])
-            entry['interface'] = _canonical_interface_name(entry['interface'])
+            entry['interface'] = canonical_interface_name(entry['interface'])
             entry['vlan'] = int(entry['vlan'])
             entry['static'] = (entry['static'] == 'Static')
             entry['active'] = (entry['active'] == 'Active')
-            entry['moves'] = -1 # not implemented
-            entry['last_move'] = -1.0 # not implemented
+            entry['moves'] = -1        # not implemented
+            entry['last_move'] = -1.0  # not implemented
 
             mac_table.append(entry)
 
@@ -440,22 +357,21 @@ class FTOSDriver(NetworkDriver):
 
     def get_interfaces(self):
         """FTOS implementation of get_interfaces."""
-
         iface_entries = self._get_interfaces_detail()
 
         interfaces = {}
         for i, entry in enumerate(iface_entries):
-            if len(entry['iface_name']) is 0:
+            if len(entry['iface_name']) == 0:
                 continue
 
             # init interface entry with default values
             iface = {
-                'is_enabled': False,
-                'is_up': False,
-                'description': entry['description'],
-                'mac_address': mac(entry['mac_address']),
-                'last_flapped': 0.0, # in seconds
-                'speed': 0, # in megabits
+                'is_enabled':   False,
+                'is_up':        False,
+                'description':  entry['description'],
+                'mac_address':  mac(entry['mac_address']),
+                'last_flapped': 0.0,  # in seconds
+                'speed':        0,    # in megabits
             }
 
             # set statuses
@@ -465,58 +381,52 @@ class FTOSDriver(NetworkDriver):
                 iface['is_up'] = True
 
             # parse line_speed
-            if re.search('bit$', entry['line_speed']):
+            if re.search(r'bit$', entry['line_speed']):
                 speed = entry['line_speed'].split(' ')
                 if speed[1] == 'Mbit':
                     iface['speed'] = int(speed[0])
-                elif speed[1] == 'Gbit': # not sure if this ever occurs
+                # not sure if this ever occurs
+                elif speed[1] == 'Gbit':
                     iface['speed'] = int(speed[0]*1000)
 
             # parse last_flapped
-            iface['last_flapped'] = float(self._parse_uptime(entry['last_flapped'], True))
+            iface['last_flapped'] = float(parse_uptime(entry['last_flapped'], True))
 
             # add interface data to dict
-            local_intf = _canonical_interface_name(entry['iface_name'])
+            local_intf = canonical_interface_name(entry['iface_name'])
             interfaces[local_intf] = iface
 
         return interfaces
 
     def get_interfaces_counters(self):
         """FTOS implementation of get_interfaces_counters."""
-
         iface_entries = self._get_interfaces_detail()
         interfaces = {}
         key_map = [
-            'rx_octets',
+            ['rx_octets',  'rx_octets'],
             ['rx_unicast', 'rx_unicast_packets'],
-            ['rx_mcast', 'rx_multicast_packets'],
-            ['rx_bcast', 'rx_broadcast_packets'],
-            ['rx_dcard', 'rx_discards'],
-            'tx_octets',
+            ['rx_mcast',   'rx_multicast_packets'],
+            ['rx_bcast',   'rx_broadcast_packets'],
+            ['rx_dcard',   'rx_discards'],
+            ['tx_octets',  'tx_octets'],
             ['tx_unicast', 'tx_unicast_packets'],
-            ['tx_mcast', 'tx_multicast_packets'],
-            ['tx_bcast', 'tx_broadcast_packets'],
-            ['tx_dcard', 'tx_discards'],
+            ['tx_mcast',   'tx_multicast_packets'],
+            ['tx_bcast',   'tx_broadcast_packets'],
+            ['tx_dcard',   'tx_discards'],
         ]
         for idx, entry in enumerate(iface_entries):
             iface = {
-                'rx_errors':            0, # unimplemented
-                'tx_errors':            0, # unimplemented
+                'rx_errors': 0,  # unimplemented
+                'tx_errors': 0,  # unimplemented
             }
             for key in key_map:
-                if (isinstance(key, types.ListType)):
-                    src, dst = key
-                else:
-                    src = key
-                    dst = key
-
                 try:
-                    iface[dst] = int(entry[src])
+                    iface[key[1]] = int(entry[key[0]])
                 except ValueError:
-                    iface[dst] = 0
+                    iface[key[1]] = 0
 
             # add interface data to dict
-            local_intf = _canonical_interface_name(entry['iface_name'])
+            local_intf = canonical_interface_name(entry['iface_name'])
             interfaces[local_intf] = iface
 
         return interfaces
@@ -533,25 +443,33 @@ class FTOSDriver(NetworkDriver):
         iface = None
         for line in ip_res.splitlines():
             # interface line
-            m = re.search('^(\w+( \d+(\/\d+)?)?) is \w+', line)
+            m = re.search(r'^(\w+( \d+(\/\d+)?)?) is \w+', line)
             if m:
+                # capture interface name and move on to next line
                 iface = m.group(1)
                 continue
 
-            # address line
-            m = re.search('^Internet address is ([0-9\.]+)(?:\/(\d+))?', line)
-            if m:
-                if iface not in addr:
-                    addr[iface] = {u'ipv4': {}}
+            # look for IPv4 address line
+            m = re.search(r'^Internet address is ([0-9\.]+)(?:\/(\d+))?', line)
+            if not m:
+                continue
 
-                address = ip(m.group(1))
-                mask = 32
-                if m.group(2):
-                    mask = int(m.group(2))
-                    address = address.replace('/%d' % mask, '')
-                addr[iface][u'ipv4'][address] = {
-                    'prefix_length': mask
-                }
+            # prepare address dict for this interface
+            addr = prep_addr(addr, iface)
+
+            address = ip(m.group(1))
+
+            # try to get subnet mask from output as well
+            # otherwise assume /32
+            mask = 32
+            if m.group(2):
+                mask = int(m.group(2))
+                # remove subnet mask from address
+                address = address.replace('/%d' % mask, '')
+
+            addr[iface][u'ipv4'][address] = {
+                'prefix_length': mask
+            }
 
         ip6_cmd = "show ipv6 interface brief"
         ip6_res = self._send_command(ip6_cmd)
@@ -560,30 +478,36 @@ class FTOSDriver(NetworkDriver):
         iface = None
         for line in ip6_res.splitlines():
             # interface line
-            m = re.search('^(\w+( \d+(\/\d+)?)?)\s+', line)
+            m = re.search(r'^(\w+( \d+(\/\d+)?)?)\s+', line)
             if m:
+                # capture interface name and move on to next line
                 iface = m.group(1)
                 continue
 
-            # address line
-            m = re.search('^\s*([a-f0-9:]+)(?:\/(\d+))?', line)
-            if m:
-                if iface not in addr:
-                    addr[iface] = {u'ipv6': {}}
-                elif u'ipv6' not in addr[iface]:
-                    addr[iface][u'ipv6'] = {}
+            # look for IPv6 address line
+            m = re.search(r'^\s*([a-f0-9:]+)(?:\/(\d+))?', line)
+            if not m:
+                continue
 
-                address = ip(m.group(1))
-                if m.group(2):
-                    mask = int(m.group(2))
-                    address = address.replace('/%d' % mask, '')
-                elif re.search('^fe80', address):
-                    mask = 64
-                else:
-                    mask = 128
-                addr[iface][u'ipv6'][address] = {
-                    'prefix_length': mask
-                }
+            # prepare address dict for this interface
+            addr = prep_addr(addr, iface, u'ipv6')
+
+            address = ip(m.group(1))
+
+            # try to get prefix length from output as well
+            # otherwise assume /128
+            preflen = 128
+            if m.group(2):
+                preflen = int(m.group(2))
+                # remove prefix length from address
+                address = address.replace('/%d' % preflen, '')
+            # for link-local addresses assume prefix length /64
+            elif re.search(r'^fe80', address):
+                preflen = 64
+
+            addr[iface][u'ipv6'][address] = {
+                'prefix_length': preflen
+            }
 
         return addr
 
@@ -603,12 +527,10 @@ class FTOSDriver(NetworkDriver):
 
     def get_ntp_servers(self):
         """FTOS implementation of get_ntp_servers."""
-
         return self.get_ntp_peers()
 
     def get_ntp_stats(self):
         """FTOS implementation of get_ntp_stats."""
-
         entries = self._get_ntp_assoc()
         stats = []
         for idx, entry in enumerate(entries):
@@ -635,24 +557,25 @@ class FTOSDriver(NetworkDriver):
         return stats
 
     def get_snmp_information(self):
+        """FTOS implementation of get_snmp_information."""
         command = "show running-config snmp"
         snmp = self._send_command(command)
 
         info = {
-            'chassis_id': u'', # not implemented
-            'community': {},
-            'contact': u'',
-            'location': u'',
+            'chassis_id': u'',  # not implemented
+            'community':  {},
+            'contact':    u'',
+            'location':   u'',
         }
 
         for line in snmp.splitlines():
             if 'community' in line:
-                m = re.search('^snmp-server community ([^\s]+) ([^\s]+)(?: ([^\s]+))?', line.strip())
+                m = re.search(r'^snmp-server community ([^\s]+) ([^\s]+)(?: ([^\s]+))?', line.strip())
                 if not m:
                     continue
                 com = {
                     'mode': m.group(2),
-                    'acl': u'N/A',
+                    'acl':  u'N/A',
                 }
                 if m.group(3):
                     com['acl'] = m.group(3)
@@ -668,11 +591,10 @@ class FTOSDriver(NetworkDriver):
 
     def get_users(self):
         """FTOS implementation of get_users."""
-
         command = "show running-config users"
         output = self._send_command(command)
 
-        ptr = re.compile('^username ([^\s]+).+(?:sha256-)?password \d+ ([^\s]+) (?:privilege (\d+))?')
+        ptr = re.compile(r'^username ([^\s]+).+(?:sha256-)?password \d+ ([^\s]+) (?:privilege (\d+))?')
         users = {}
         for line in output.splitlines():
             m = ptr.search(line.strip())
@@ -682,8 +604,8 @@ class FTOSDriver(NetworkDriver):
             g = m.groups()
             user = {
                 'password': g[1],
-                'sshkeys': [],
-                'level': 0,
+                'sshkeys':  [],
+                'level':    0,
             }
             if g[2]:
                 user['level'] = int(g[2])
@@ -694,7 +616,6 @@ class FTOSDriver(NetworkDriver):
 
     def is_alive(self):
         """FTOS implementation of is_alive."""
-
         null = chr(0)
         if self.device is None:
             return {'is_alive': False}
@@ -726,14 +647,14 @@ class FTOSDriver(NetworkDriver):
         result = self._send_command(command)
 
         # check if output holds an error
-        m = re.search('% Error: (.+)', result)
+        m = re.search(r'% Error: (.+)', result)
         if m:
             return {
                 'error': m.group(1)
             }
 
         # try to parse the output
-        m = re.search('Success rate is [\d\.]+ percent \((\d+)\/(\d+)\).+ = (\d+)\/(\d+)\/(\d+)', result)
+        m = re.search(r'Success rate is [\d\.]+ percent \((\d+)\/(\d+)\).+ = (\d+)\/(\d+)\/(\d+)', result)
         if not m:
             return {
                 'error': 'could not parse output',
@@ -744,14 +665,14 @@ class FTOSDriver(NetworkDriver):
             'success': {
                 'probes_sent': int(g[1]),
                 'packet_loss': int(g[1]) - int(g[0]),
-                'rtt_min': float(g[2]),
-                'rtt_avg': float(g[3]),
-                'rtt_max': float(g[4]),
-                'rtt_stddev': 0.0, # not implemented
+                'rtt_min':     float(g[2]),
+                'rtt_avg':     float(g[3]),
+                'rtt_max':     float(g[4]),
+                'rtt_stddev':  0.0,  # not implemented
                 'results': [
                     {
                         'ip_address': ip(destination),
-                        'rtt': float(g[3]),
+                        'rtt':        float(g[3]),
                     }
                 ],
             }
@@ -769,7 +690,7 @@ class FTOSDriver(NetworkDriver):
         result = self._send_command(command)
 
         # check if output holds an error
-        m = re.search('% Error: (.+)', result)
+        m = re.search(r'% Error: (.+)', result)
         if m:
             return {
                 'error': m.group(1)
@@ -786,8 +707,8 @@ class FTOSDriver(NetworkDriver):
                 ctr = 1
 
             # rewrite probes for easier splitting
-            probes = re.sub('\s+', ' ', entry['probes'].replace('ms', '').strip())
-            if len(probes) is 0:
+            probes = re.sub(r'\s+', ' ', entry['probes'].replace('ms', '').strip())
+            if len(probes) == 0:
                 probes = []
             else:
                 probes = probes.split(' ')
@@ -795,8 +716,8 @@ class FTOSDriver(NetworkDriver):
             for probe in probes:
                 trace[ttl]['probes'][ctr] = {
                     'rtt': float(probe),
-                    'ip_address': ip(unicode(entry['hop'])),
-                    'host_name': unicode(entry['hop']),
+                    'ip_address': ip(py23_compat.text_type(entry['hop'])),
+                    'host_name': py23_compat.text_type(entry['hop']),
                 }
                 ctr += 1
 

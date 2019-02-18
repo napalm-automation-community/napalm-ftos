@@ -12,7 +12,7 @@
 # License for the specific language governing permissions and limitations under
 # the License.
 
-"""napalm.ftos package."""
-from napalm.ftos.ftos import FTOSDriver
+"""napalm_ftos package."""
+from napalm_ftos.ftos import FTOSDriver
 
 __all__ = ('FTOSDriver',)

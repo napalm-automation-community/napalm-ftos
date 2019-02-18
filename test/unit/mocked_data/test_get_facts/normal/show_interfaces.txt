@@ -140,3 +140,38 @@ Rate info (interval 299 seconds):
      Input 109.00 Mbits/sec,       7595 packets/sec, 1.10% of line-rate
      Output 72.00 Mbits/sec,       7400 packets/sec, 0.73% of line-rate
 Time since last interface status change: 6d22h22m
+
+
+fortyGigE 0/33 is up, line protocol is up
+Port is part of Port-channel 100
+Description: uplink1
+Hardware is DellEth, address is f8:b1:56:4a:0e:5a
+    Current address is f8:b1:56:4a:0e:5a
+Pluggable media present, QSFP type is 40GBASE-CR4-1M
+Interface index is 1052677
+Internet address is not set
+Mode of IPv4 Address Assignment : NONE
+DHCP Client-ID :f8b1564a0e5a
+MTU 12000 bytes, IP MTU 11982 bytes
+LineSpeed 40000 Mbit
+Flowcontrol rx off tx off
+ARP type: ARPA, ARP Timeout 04:00:00
+Last clearing of "show interface" counters 34w6d10h
+Queueing strategy: fifo
+Input Statistics:
+     801343001841 packets, 738100848755299 bytes
+     8900714318 64-byte pkts, 259390319635 over 64-byte pkts, 34656295418 over 127-byte pkts
+     23003729952 over 255-byte pkts, 13650779758 over 511-byte pkts, 461741162759 over 1023-byte pkts
+     29197403 Multicasts, 718565443 Broadcasts, 800595238526 Unicasts
+     0 runts, 0 giants, 0 throttles
+     0 CRC, 0 overrun, 11314581 discarded
+Output Statistics:
+     124436009020 packets, 167254300783515 bytes, 0 underruns
+     2727490149 64-byte pkts, 7007527746 over 64-byte pkts, 1116679932 over 127-byte pkts
+     1875031182 over 255-byte pkts, 1766650800 over 511-byte pkts, 109942629211 over 1023-byte pkts
+     130229666 Multicasts, 590919355 Broadcasts, 123714859999 Unicasts
+     0 throttles, 0 discarded, 0 collisions, 0 wreddrops
+Rate info (interval 299 seconds):
+     Input 1042.00 Mbits/sec,     105440 packets/sec, 2.65% of line-rate
+     Output 80.00 Mbits/sec,       7416 packets/sec, 0.20% of line-rate
+Time since last interface status change: 34w6d10h

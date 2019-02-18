@@ -46,10 +46,12 @@ class PatchedFTOSDriver(ftos.FTOSDriver):
         """Fake driver, don't do anything."""
         pass
 
+
 class FakeFTOSDevice(BaseTestDouble):
     """FTOS device test double."""
 
     def send_command(self, command, **kwargs):
+        """Fake driver, get output from file."""
         filename = '{}.txt'.format(self.sanitize_text(command))
         full_path = self.find_file(filename)
         result = self.read_txt_file(full_path)
