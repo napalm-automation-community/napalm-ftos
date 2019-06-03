@@ -26,6 +26,8 @@ from napalm.base.utils import py23_compat
 from napalm.base import NetworkDriver
 from napalm.base.exceptions import ConnectionException
 
+from netaddr.core import AddrFormatError
+
 from napalm_ftos.utils import (
     canonical_interface_name,
     parse_uptime,
@@ -368,11 +370,18 @@ class FTOSDriver(NetworkDriver):
             iface = {
                 'is_enabled':   False,
                 'is_up':        False,
-                'description':  entry['description'],
-                'mac_address':  mac(entry['mac_address']),
+                'description':  py23_compat.text_type(entry['description']),
+                'mac_address':  u'',
                 'last_flapped': 0.0,  # in seconds
                 'speed':        0,    # in megabits
             }
+
+            # not all interface have MAC addresses specified in `show interfaces'
+            # so if converting it to a MAC address won't work, leave it like that
+            try:
+                iface['mac_address'] = mac(entry['mac_address'])
+            except AddrFormatError:
+                pass
 
             # set statuses
             if entry['admin_status'] == 'up':
