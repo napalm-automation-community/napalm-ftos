@@ -30,5 +30,13 @@
     "is_up": true,
     "mac_address": "AA:BB:CC:DD:EE:02",
     "speed": 10000
+  },
+  "ManagementEthernet 1/0": {
+    "is_enabled": true,
+    "description": "",
+    "last_flapped": 19115.0,
+    "is_up": false,
+    "mac_address": "",
+    "speed": 0
   }
 }

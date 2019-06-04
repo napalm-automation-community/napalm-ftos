@@ -140,3 +140,15 @@ Rate info (interval 299 seconds):
      Input 00.00 Mbits/sec,          0 packets/sec, 0.00% of line-rate
      Output 00.00 Mbits/sec,          0 packets/sec, 0.00% of line-rate
 Time since last interface status change: 5d1h56m
+
+ManagementEthernet 1/0 is up, line protocol is not present
+Hardware is DellEth, address is not set
+Interface index is 14680065
+Internet address is not set
+Mode of IPv4 Address Assignment : NONE
+DHCP Client-ID :0001e88bf9a3
+MTU 1554 bytes, IP MTU 1500 bytes
+LineSpeed auto, Mode full duplex
+ARP type: ARPA, ARP Timeout 04:00:00
+Queueing strategy: fifo
+Time since last interface status change: 05:18:35
