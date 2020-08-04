@@ -323,7 +323,7 @@ class FTOSDriver(NetworkDriver):
                     try:
                         lldp_entry[k] = mac(lldp_entry[k])
                     except:
-                        lldp_entry[k] = ''
+                        lldp_entry[k] = lldp_entry[k]
 
             # transform capabilities
             for k in ['remote_system_capab', 'remote_system_enable_capab']:
