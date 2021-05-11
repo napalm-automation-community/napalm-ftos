@@ -320,7 +320,10 @@ class FTOSDriver(NetworkDriver):
             # cast some mac addresses
             for k in ['remote_port', 'remote_chassis_id']:
                 if len(lldp_entry[k].strip()) > 0:
-                    lldp_entry[k] = mac(lldp_entry[k])
+                    try:
+                        lldp_entry[k] = mac(lldp_entry[k])
+                    except AddrFormatError:
+                        pass
 
             # transform capabilities
             for k in ['remote_system_capab', 'remote_system_enable_capab']:
