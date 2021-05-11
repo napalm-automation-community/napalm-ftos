@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2016 Dravetech AB. All rights reserved.
+# Copyright 2021 Berlin Institute of Health. All rights reserved.
 #
 # The contents of this file are licensed under the Apache License, Version 2.0
 # (the "License"); you may not use this file except in compliance with the
@@ -21,7 +22,6 @@ import socket
 from napalm.base.helpers import textfsm_extractor
 from napalm.base.helpers import mac, ip
 from napalm.base.netmiko_helpers import netmiko_args
-from napalm.base.utils import py23_compat
 
 from napalm.base import NetworkDriver
 from napalm.base.exceptions import ConnectionException
@@ -123,7 +123,7 @@ class FTOSDriver(NetworkDriver):
                 "up": (entry['connection_state'] == 'ESTABLISHED'),
                 "local_as": -1,  # unimplemented
                 "router_id": ip(entry['router_id']),
-                "local_address": py23_compat.text_type(entry['local_address']),
+                "local_address": str(entry['local_address']),
                 "routing_table": u'',  # unimplemented
                 "local_address_configured": False,  # unimplemented
                 "local_port": entry['local_port'],
@@ -162,7 +162,7 @@ class FTOSDriver(NetworkDriver):
 
         return table
 
-    def get_config(self, retrieve='all'):
+    def get_config(self, retrieve='all', full=False, sanitized=False):
         """FTOS implementation of get_config."""
         config = {
             'startup':   u'',
@@ -370,10 +370,11 @@ class FTOSDriver(NetworkDriver):
             iface = {
                 'is_enabled':   False,
                 'is_up':        False,
-                'description':  py23_compat.text_type(entry['description']),
+                'description':  str(entry['description']),
                 'mac_address':  u'',
                 'last_flapped': 0.0,  # in seconds
                 'speed':        0,    # in megabits
+                'mtu':          0,
             }
 
             # not all interface have MAC addresses specified in `show interfaces'
@@ -397,6 +398,9 @@ class FTOSDriver(NetworkDriver):
                 # not sure if this ever occurs
                 elif speed[1] == 'Gbit':
                     iface['speed'] = int(speed[0]*1000)
+
+            # parse mtu
+            iface['mtu'] = int(entry['mtu'])
 
             # parse last_flapped
             iface['last_flapped'] = float(parse_uptime(entry['last_flapped'], True))
@@ -725,8 +729,8 @@ class FTOSDriver(NetworkDriver):
             for probe in probes:
                 trace[ttl]['probes'][ctr] = {
                     'rtt': float(probe),
-                    'ip_address': ip(py23_compat.text_type(entry['hop'])),
-                    'host_name': py23_compat.text_type(entry['hop']),
+                    'ip_address': ip(str(entry['hop'])),
+                    'host_name': str(entry['hop']),
                 }
                 ctr += 1
 
