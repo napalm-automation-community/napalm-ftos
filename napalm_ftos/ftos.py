@@ -28,6 +28,8 @@ from napalm.base.exceptions import ConnectionException
 
 from netaddr.core import AddrFormatError
 
+import paramiko
+
 from napalm_ftos.utils import (
     canonical_interface_name,
     parse_uptime,
@@ -51,6 +53,19 @@ class FTOSDriver(NetworkDriver):
             optional_args = {}
 
         self.netmiko_optional_args = netmiko_args(optional_args)
+
+        # Allow old key exchange algorithms in paramiko.  Old FTOS devices don't get
+        # patches any more.
+        lst = list(paramiko.Transport._preferred_kex)
+        more = (
+            "diffie-hellman-group-exchange-sha1",
+            "diffie-hellman-group14-sha1",
+            "diffie-hellman-group1-sha1",
+        )
+        for x in more:
+            if x not in lst:
+                lst.insert(0, x)
+        paramiko.Transport._preferred_kex = tuple(lst)
 
     def _send_command(self, command):
         try:
