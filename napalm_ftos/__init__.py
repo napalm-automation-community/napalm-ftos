@@ -13,6 +13,13 @@
 # the License.
 
 """napalm_ftos package."""
+import pkg_resources
+
 from napalm_ftos.ftos import FTOSDriver
+
+try:
+    __version__ = pkg_resources.get_distribution('napalm-ftos').version
+except pkg_resources.DistributionNotFound:
+    __version__ = "Not installed"
 
 __all__ = ('FTOSDriver',)

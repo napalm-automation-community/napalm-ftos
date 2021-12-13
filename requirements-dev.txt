@@ -1,7 +1,7 @@
 coveralls
 ddt
 flake8-import-order
-pytest
+pytest <6.0.0
 pytest-cov
 pytest-json
 pytest-pythonpath

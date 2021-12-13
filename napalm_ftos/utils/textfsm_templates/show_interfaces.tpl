@@ -33,6 +33,7 @@
 #     Output 149.00 Mbits/sec,       7549 packets/sec, 1.50% of line-rate
 #Time since last interface status change: 23w1d6h
 Value IFACE_NAME (.*)
+Value MTU (\d+)
 Value ADMIN_STATUS (\w+)
 Value OPER_STATUS (\w+)
 Value DESCRIPTION (.*)
@@ -52,6 +53,7 @@ Value LAST_FLAPPED (.*)
 
 Start
   ^\s*${IFACE_NAME} is ${ADMIN_STATUS}, line protocol is ${OPER_STATUS}
+  ^MTU ${MTU} .*
   ^\s*Description: ${DESCRIPTION}
   ^.*Current address is ${MAC_ADDRESS}
   ^LineSpeed ${LINE_SPEED}

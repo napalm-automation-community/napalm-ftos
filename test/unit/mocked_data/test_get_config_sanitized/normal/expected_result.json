@@ -1,0 +1,5 @@
+{
+  "running": "this is supposed to be the running configuration\n",
+  "startup": "this is supposed to be the startup configuration\n",
+  "candidate": "Not implemented for FTOS"
+}
