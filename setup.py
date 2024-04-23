@@ -19,7 +19,7 @@ def parse_reqs(file_path):
 
 setup(
     name="napalm-ftos",
-    version="0.1.2",
+    version="0.2.0",
     packages=find_packages(),
     author="Reinier Schoof, Manuel Holtgrewe",
     author_email="reinier@skoef.nl, manuel.holtgrewe@bih-charite.de",
